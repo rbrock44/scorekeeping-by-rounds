@@ -1,27 +1,37 @@
-# ScorekeepingByRounds
+# Scorekeeping By Rounds
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+This application was created to keep score of players or teams for any number of rounds.
 
-## Development server
+This application does support having 2 screens of the webpage open at once. For example you could throw the 'Ranking' page on a different screen/monitor as the 'Score Entry' page and the 'Ranking' page will update the scores between 1-20 seconds of entering them.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Settings Page
 
-## Build
+Setting - Description
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Title - The game being played (Ex. trivia or joepardy)
+Number of Rounds - Input the number of rounds
+Number of Players - Input the number of players
+Use Players or Teams - Are individuals or groups competing against each other?
+Should Sort By - Should the 'Ranking' Page sort by player/team # or what place they are in?
+Show Last Round - Should the 'Ranking' Page show the previous round of scores along with the total scores?
+Apply Scored Goes to Next Round - When the apply button is clicked on the 'Score Entry' page should it automatically navigate to the next round?
+Color - Choose the color scheme for the application *this is the only setting that applies on selection
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Buttons - Description
 
-## Running end-to-end tests
+Apply - Applies the currectly selected settings (except for color)
+Reset Only Scores - Resets just the scores
+Reset Everything - Resets the scores and the settings
+Export Scores - Exports the current scores to an excel document (hopefully you'd do this when the game was over)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+# Score Entry Page
 
-## Further help
+Allows the user to navigate to different rounds and input each player's/team's score for the round
+The 'Apply' button must be clicked in order for the scored to be saved
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Rankings Page
+
+Shows the total scores and depending on the settings it will show the last round entered scores 
