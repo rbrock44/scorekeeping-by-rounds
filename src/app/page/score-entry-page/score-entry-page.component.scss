@@ -1,0 +1,63 @@
+@import '../../../styles.scss';
+
+.pagination-button {
+  @include box();
+  @include largeFont();
+  margin: 15px;
+  @include buttonStyling();
+}
+
+.apply-button {
+  @include box(30px, 100px);
+  margin: 10px;
+  @include largeFont();
+  @include buttonStyling();
+}
+
+.button-div {
+  text-align: center;
+  font-size: large;
+}
+
+.header-div {
+  text-align: center;
+}
+
+#round-title {
+  font-size: x-large;
+}
+
+#score-title {
+  font-size: xx-large;
+  padding: 5px;
+}
+
+[data-score-entry-ctn] {
+  @include centerFlex();
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 71vh;
+  align-content: center;
+}
+
+[data-player-label] {
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.player-score-form-field {
+  min-width: 50px;
+  width: 50px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+[data-for-each-player] {
+  @include centerFlex();
+  text-align: center;
+}
+
+[data-for-each-player]:nth-child(odd) {
+  background: var(--backgroundColor);
+
+}
