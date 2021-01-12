@@ -1,0 +1,51 @@
+@import '../../../styles.scss';
+
+.header-div {
+  text-align: center;
+}
+
+[data-header-title] {
+  font-size: xx-large;
+  padding: 5px;
+}
+
+.score-ctn {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-title {
+  font-size: x-large;
+  font-weight: 500;
+  padding: 5px;
+}
+
+[data-score-div] {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.player-score-value {
+  //text-align: center;
+  display: flex;
+  padding: 5px 15px 5px 5px;
+}
+
+.player-label {
+  min-width: 100px;
+}
+
+.player-score-ctn {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  //align-items: center;
+  flex-wrap: wrap;
+  max-height: 78vh;
+  align-content: center;
+}
+
+.player-score-value:nth-child(odd) {
+  background: var(--backgroundColor);
+}
