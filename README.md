@@ -1,8 +1,8 @@
 # Scorekeeping By Rounds
 
-This application was created to keep score of players or teams for any number of rounds.
+This application was created to keep score of players or teams for any number of rounds
 
-This application does support having 2 screens of the webpage open at once. For example you could throw the 'Ranking' page on a different screen/monitor as the 'Score Entry' page and the 'Ranking' page will update the scores between 1-20 seconds of entering them.
+This application does support having 2 screens of the webpage open at once. For example you could have the 'Ranking' page on a different screen/monitor as the 'Score Entry' page and the 'Ranking' page will update the scores between 1-20 seconds of entering them
 
 
 
