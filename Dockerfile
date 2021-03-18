@@ -1,17 +1,32 @@
 # Stage 1
 FROM node:10-alpine as build-step
 
-RUN mkdir -p /app
+COPY package.json package-lock.json ./
 
-WORKDIR /app
+RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
-COPY package.json /app
+## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+RUN npm i && npm run ngcc && mkdir /ng-app && cp -R ./node_modules ./ng-app
 
-RUN npm install
+WORKDIR /ng-app
 
-COPY . /app
+#RUN mkdir -p /app
+#
+#WORKDIR /app
 
-RUN npm run build --prod
+#COPY package.json /app
+
+COPY . .
+
+#RUN npm install
+RUN npm run build:prod
+
+## Copy our default nginx config
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+#COPY . /app
+
+#RUN npm run build --prod
 
 # Stage 2
 FROM nginx:1.17.1-alpine
