@@ -1,9 +1,0 @@
-{
-  "name": "vizient-angular-test-suite",
-  "version": "0.0.9",
-  "peerDependencies": {
-    "@angular/common": ">=4.0.0",
-    "@angular/core": ">=4.0.0",
-    "moment": ">=2.20.0"
-  }
-}
