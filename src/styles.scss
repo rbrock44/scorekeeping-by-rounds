@@ -43,7 +43,7 @@ $target-colors: (
   yellow-color: #fae361,
 );
 
-$tones: 10, 20, 30, 40, 50, 60, 70, 80;
+$tones: 40, 80;
 
 @mixin generate-color-var($key, $value) {
   --#{$key}: #{$value};
