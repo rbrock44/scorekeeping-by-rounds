@@ -15,7 +15,6 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "baseHref": "/scorekeeping-by-rounds/",
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/scorekeeping-by-rounds",
@@ -127,7 +126,6 @@
           }
         },
         "deploy": {
-          "baseHref": "/scorekeeping-by-rounds/",
           "builder": "angular-cli-ghpages:deploy",
           "options": {}
         }
