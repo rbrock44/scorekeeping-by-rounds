@@ -213,7 +213,7 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
 
   constructor(public dialog: MatDialog,
               private alertService: AlertService,
-              private settingsService: SettingsService) {
+              public settingsService: SettingsService) {
   }
 
   ngOnInit() {
