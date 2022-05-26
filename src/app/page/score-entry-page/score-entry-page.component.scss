@@ -1,5 +1,42 @@
 @import '../../../styles.scss';
 
+@media only screen and (max-width: 1225px) and (min-width: 800px) {
+  /* For mobile phones: */
+  [class*="score-entry-ctn"] {
+    max-height: 200vw !important;
+  }
+}
+
+@media only screen and (max-width: 1585px) and (min-width: 1226px) {
+  /* For mobile phones: */
+  [class*="score-entry-ctn"] {
+    max-height: 120vw !important;
+  }
+}
+
+@media only screen and (max-width: 1875px) and (min-width: 1586px) {
+  /* For mobile phones: */
+  [class*="score-entry-ctn"] {
+    max-height: 80vw !important;
+  }
+}
+
+@media only screen and (max-width: 799px) and (min-width: 769px) {
+  /* For mobile phones: */
+  [class*="score-entry-ctn"] {
+    max-height: 240vw !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="score-entry-ctn"] {
+    max-height: none !important;
+  }
+}
+
+
+
 .pagination-button {
   @include box();
   @include largeFont();
@@ -36,7 +73,7 @@
   @include centerFlex();
   flex-direction: column;
   flex-wrap: wrap;
-  max-height: 71vh;
+  max-height: 35vw;
   align-content: center;
 }
 

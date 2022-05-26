@@ -28,7 +28,7 @@ import {AlertService} from '../../service/alert.service';
           </button>
         </div>
       </div>
-      <div *ngIf="isFormGroupLoaded" data-score-entry-ctn>
+      <div *ngIf="isFormGroupLoaded" data-score-entry-ctn class="score-entry-ctn">
         <div *ngFor="let i of players" data-for-each-player>
           <div data-player-label>{{this.settingsService.getPlayerName(i)}}</div>
           <mat-form-field class="player-score-form-field">

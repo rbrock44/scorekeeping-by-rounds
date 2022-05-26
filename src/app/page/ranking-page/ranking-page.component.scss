@@ -1,5 +1,22 @@
 @import '../../../styles.scss';
 
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="score-div-ctn"] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  [class*="score-title"] {
+    display: flex;
+    justify-content: center;
+  }
+
+  [class*="score-ctn"] {
+    padding-bottom: 2vh;
+  }
+}
+
 .header-div {
   text-align: center;
 }

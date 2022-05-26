@@ -1,5 +1,31 @@
 @import '../../../styles.scss';
 
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="settings-value-ctn"] {
+    @include mobileDisplay();
+  }
+
+  [class*="dropdown-ctn"] {
+    @include mobileDisplay();
+  }
+
+  [class*="small-button"] {
+    @include mobileDisplay();
+    width: 100px;
+  }
+
+  [class*="buttons-ctn-big"] {
+    display: none;
+  }
+
+  [class*="buttons"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .header-div {
   text-align: center;
   margin-bottom: 50px;

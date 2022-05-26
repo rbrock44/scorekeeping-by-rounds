@@ -10,7 +10,7 @@ import {PlayerScoreModel} from '../../model/player-score.model';
         <header data-header-title>{{this.title}}</header>
       </div>
 
-      <div data-score-div>
+      <div data-score-div class="score-div-ctn">
         <div data-overall-score-ctn class="score-ctn">
           <div data-overall-score-label class="score-title">Overall Score</div>
           <div class="player-score-ctn">

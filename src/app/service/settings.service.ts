@@ -421,7 +421,7 @@ export class SettingsService implements OnDestroy {
   }
 
   private getUsePlayerOrDefault(): string {
-    const usePlayer: string = window.localStorage.getItem('show-last-round');
+    const usePlayer: string = window.localStorage.getItem('use-player');
     return !this.isNullOrUndefined(usePlayer) ? usePlayer : _.cloneDeep(this.USE_PLAYER_DEFAULT);
   }
 
