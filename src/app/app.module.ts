@@ -20,25 +20,25 @@ import {SettingsService} from './service/settings.service';
 @NgModule({
   declarations: [
     AppComponent,
-    SettingsPageComponent,
+    ConfirmationPopupComponent,
+    HeaderComponent,
     RankingPageComponent,
     ScoreEntryPageComponent,
-    HeaderComponent,
+    SettingsPageComponent,
     YesNoDropdownComponent,
-    ConfirmationPopupComponent
   ],
   entryComponents: [ConfirmationPopupComponent],
   imports: [
     AlertModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     BrowserModule,
     CommonModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
     FormsModule,
-    MatInputModule,
+    ReactiveFormsModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatOptionModule,
     MatSelectModule
   ],

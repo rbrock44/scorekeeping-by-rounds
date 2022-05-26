@@ -115,7 +115,7 @@ import {AlertService} from '../../service/alert.service';
                 [disabled]="!this.settingsFormGroup.valid"
                 class="apply-button">Apply
         </button>
-        <div>
+        <div class="buttons-ctn-big">
           <button data-button-reset-only-scores
                   (click)="resetOnlyScores()"
                   class="reset-button">Reset Only Scores
