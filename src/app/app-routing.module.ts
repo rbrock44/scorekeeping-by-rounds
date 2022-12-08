@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RankingPageComponent} from './page/ranking-page/ranking-page.component';
-import {SettingsPageComponent} from './page/settings-page/settings-page.component';
+import {SettingsComponent} from './page/settings/settings.component';
 import {ScoreEntryPageComponent} from './page/score-entry-page/score-entry-page.component';
 
 
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: SettingsPageComponent,
+    component: SettingsComponent,
   }
 ];
 

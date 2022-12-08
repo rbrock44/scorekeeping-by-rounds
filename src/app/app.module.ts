@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {SettingsPageComponent} from './page/settings-page/settings-page.component';
+import {SettingsComponent} from './page/settings/settings.component';
 import {RankingPageComponent} from './page/ranking-page/ranking-page.component';
 import {ScoreEntryPageComponent} from './page/score-entry-page/score-entry-page.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -24,7 +24,7 @@ import {SettingsService} from './service/settings.service';
     HeaderComponent,
     RankingPageComponent,
     ScoreEntryPageComponent,
-    SettingsPageComponent,
+    SettingsComponent,
     YesNoDropdownComponent,
   ],
   entryComponents: [ConfirmationPopupComponent],
