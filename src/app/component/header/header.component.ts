@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {SettingsService} from '../../service/settings.service';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,12 @@ import {Component, OnInit} from '@angular/core';
                data-score-entry-nav>Score Entry</a>
             <a mat-tab-link
                mat-theme="accent"
+               [routerLink]="['/bonus-round']"
+               class="nav-bar-link"
+               *ngIf="service.hasBonusRound"
+               data-bonus-entry-nav>Bonus Round Entry</a>
+            <a mat-tab-link
+               mat-theme="accent"
                [routerLink]="['/settings']"
                class="nav-bar-link"
                data-settings-nav>Settings</a>
@@ -31,7 +38,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() {
+  constructor(private service: SettingsService) {
   }
 
   ngOnInit() {

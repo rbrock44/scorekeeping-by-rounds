@@ -16,10 +16,12 @@ import {ConfirmationPopupComponent} from './component/confirmation-popup/confirm
 import {AlertModule} from './component/alert/alert.module';
 import {ExcelService} from './service/excel.service';
 import {SettingsService} from './service/settings.service';
+import {BonusEntryComponent} from './page/bonus-entry/bonus-entry.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    BonusEntryComponent,
     ConfirmationPopupComponent,
     HeaderComponent,
     RankingPageComponent,

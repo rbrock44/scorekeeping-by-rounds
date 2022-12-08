@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {RankingPageComponent} from './page/ranking-page/ranking-page.component';
 import {SettingsComponent} from './page/settings/settings.component';
 import {ScoreEntryPageComponent} from './page/score-entry-page/score-entry-page.component';
+import {BonusEntryComponent} from './page/bonus-entry/bonus-entry.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'score-entry',
     component: ScoreEntryPageComponent,
+  },
+  {
+    path: 'bonus-round',
+    component: BonusEntryComponent,
   },
   {
     path: 'settings',

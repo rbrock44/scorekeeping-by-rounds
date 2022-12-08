@@ -152,6 +152,16 @@ export class SettingsService implements OnDestroy {
     this.lastRoundChanged(roundIndex);
   }
 
+  public updateBonus(scores: number[]): void {
+    let x: number = 0;
+    for (x; x < this.numberOfPlayers; x++) {
+      this.scores[x].bonus = scores[x];
+    }
+
+    this.updateTotals();
+    this.scoreChanged();
+  }
+
   public kickOffInitialScoreAndTotal(): void {
     this.updateTotals();
     this.scoreChanged();
@@ -170,17 +180,6 @@ export class SettingsService implements OnDestroy {
       };
 
       scores.push(playerScore);
-    }
-
-    if (!this.shouldSortByPlayer) {
-      scores.sort((a, b) => {
-        if (!a.totalScore || a.totalScore < b.totalScore) {
-          return -1;
-        } else if (!b.totalScore || a.totalScore > b.totalScore) {
-          return 1;
-        }
-        return 0;
-      });
     }
 
     if (!this.shouldSortByPlayer) {
