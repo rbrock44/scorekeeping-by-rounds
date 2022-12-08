@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {ConfirmationPopupComponent} from '../../component/confirmation-popup/confirmation-popup.component';
 import {AlertService} from '../../service/alert.service';
 import {
@@ -71,13 +71,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   resetEverything(): void {
-    const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
-      data: {
-        label: RESET_EVERYTHING_MESSAGE
-      },
-      id: 'confirmation-modal',
-      width: '35vw'
-    });
+    const dialogRef =  this.openDialog(RESET_EVERYTHING_MESSAGE);
     if (dialogRef) {
       dialogRef.afterClosed().subscribe(shouldReset => {
         if (shouldReset) {
@@ -92,13 +86,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   applyToSettings(): void {
-    const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
-      data: {
-        label: APPLY_SETTING_MESSAGE
-      },
-      id: 'confirmation-modal',
-      width: '35vw'
-    });
+    const dialogRef =  this.openDialog(APPLY_SETTING_MESSAGE);
     if (dialogRef) {
       dialogRef.afterClosed().subscribe(shouldApply => {
         if (shouldApply) {
@@ -121,13 +109,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   resetOnlyScores(): void {
-    const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
-      data: {
-        label: RESET_SCORES_MESSAGE
-      },
-      id: 'confirmation-modal',
-      width: '35vw'
-    });
+    const dialogRef = this.openDialog(RESET_SCORES_MESSAGE);
     if (dialogRef) {
       dialogRef.afterClosed().subscribe(shouldReset => {
         if (shouldReset) {
@@ -138,6 +120,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  private openDialog(message: string): MatDialogRef<ConfirmationPopupComponent> {
+    return this.dialog.open(ConfirmationPopupComponent, {
+      data: {
+        label: message
+      },
+      id: 'confirmation-modal',
+      width: '35vw'
+    });
   }
 
   applySettingsValuesToFormControls(): void {

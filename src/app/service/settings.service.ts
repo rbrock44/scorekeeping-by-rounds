@@ -125,6 +125,7 @@ export class SettingsService implements OnDestroy {
     this.scores = this.getScoresOrDefault(useDefault);
     this.totals = this.getTotalsOrDefault(useDefault);
   }
+
   //#endregion
 
   //#region String Concatenation Methods
@@ -136,6 +137,7 @@ export class SettingsService implements OnDestroy {
   public makeRankingTitle(): string {
     return this.title + ' Rankings';
   }
+
   //#endregion
 
   //#region Score Related Methods
@@ -246,10 +248,16 @@ export class SettingsService implements OnDestroy {
     let x: number;
     let total: number;
     for (i; i < this.numberOfPlayers; i++) {
+      let player = this.scores[i];
       x = 0;
       total = 0;
+      let minIndex = this.getMinIndex(player);
       for (x; x < this.numberOfRounds; x++) {
-        total += this.scores[i].score[x];
+        if (this.hasBonusRound && minIndex === x && player.bonus > player.score[x]) {
+          total += player.bonus;
+        } else {
+          total += player.score[x];
+        }
       }
 
       this.totals[i] = total;
@@ -258,10 +266,19 @@ export class SettingsService implements OnDestroy {
     this.saveToLocalStorage();
   }
 
+  private getMinIndex(player: PlayerModel): number {
+    if (this.lastRoundNumber >= this.numberOfRounds - 1) {
+      return player.score.indexOf(Math.min(...player.score));
+    } else {
+      return -1;
+    }
+  }
+
   public exportScoresToExcel(): void {
     const name: string = 'Name';
     const total: string = 'Total';
     const round: string = 'Round ';
+    const bonus: string = 'Bonus Round';
     let dataArray: any = [];
 
     let i: number = 0;
@@ -273,6 +290,10 @@ export class SettingsService implements OnDestroy {
 
       for (x; x < this.scores[i].score.length; x++) {
         data[round + (x + 1)] = this.scores[i].score[x];
+      }
+
+      if (this.hasBonusRound) {
+        data[bonus] = this.scores[i].bonus;
       }
 
       dataArray.push(data);
@@ -312,7 +333,7 @@ export class SettingsService implements OnDestroy {
     this.scores = this.getScoresOrDefault(false);
     this.totals = this.getTotalsOrDefault(false);
 
-    this.setColor( this.getItemOrDefault('color', COLOR_DEFAULT));
+    this.setColor(this.getItemOrDefault('color', COLOR_DEFAULT));
   }
 
   private getBoolean(value): boolean {
@@ -330,11 +351,7 @@ export class SettingsService implements OnDestroy {
   }
 
   private isNullOrUndefined(str: string): boolean {
-    if (str == null || str === undefined || str === 'undefined' || str === 'null') {
-      return true;
-    } else {
-      return false;
-    }
+    return str == null || str === 'undefined' || str === 'null';
   }
 
   private getTotalsOrDefault(useDefault: boolean): number[] {
@@ -361,7 +378,8 @@ export class SettingsService implements OnDestroy {
       let i: number = 0;
       for (i; i < this.numberOfPlayers; i++) {
         let y: PlayerModel = {
-          score: []
+          score: [],
+          bonus: 0
         };
 
         let x: number = 0;
