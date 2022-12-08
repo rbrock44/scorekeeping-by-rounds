@@ -4,6 +4,8 @@ import {Observable, Subject} from 'rxjs';
 import {PlayerModel} from '../model/player.model';
 import {PlayerScoreModel} from '../model/player-score.model';
 import {ExcelService} from './excel.service';
+import {LocalStorageSaveItem} from '../model/local-storage-save-item.model';
+import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO} from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,7 @@ export class SettingsService implements OnDestroy {
   title: string;
   shouldSortByPlayer: boolean;
   usePlayer: boolean;
+  hasBonusRound: boolean;
   showLastRoundScores: boolean;
   applyScoresNextRound: boolean;
   numberOfRounds: number;
@@ -32,15 +35,6 @@ export class SettingsService implements OnDestroy {
   PLAYER: string = 'Player';
   TEAMS: string = 'Teams';
   PLAYERS: string = 'Players';
-  NUMBER_OF_PLAYERS_DEFAULT = '10';
-  NUMBER_OF_ROUNDS_DEFAULT = '10';
-  TITLE_DEFAULT = 'Trivia';
-  USE_PLAYER_DEFAULT = 'true';
-  SORT_BY_PLAYER_DEFAULT = 'true';
-  SHOW_LAST_ROUND_DEFAULT = 'true';
-  APPLY_SCORES_NEXT_ROUND_DEFAULT = 'true';
-  LAST_ROUND_DEFAULT = '0';
-  COLOR_DEFAULT = '--blue-color-';
 
   constructor(private excelService: ExcelService) {
     this.readFromLocalStorage();
@@ -80,12 +74,14 @@ export class SettingsService implements OnDestroy {
     usePlayer: boolean,
     sortByRank: boolean,
     showLastRound: boolean,
-    applyScoresNextRound: boolean
+    applyScoresNextRound: boolean,
+    hasBonusRound: boolean,
   ) {
     this.numberOfRounds = rounds;
 
     this.numberOfPlayers = players;
     this.usePlayer = usePlayer;
+    this.hasBonusRound = hasBonusRound;
     this.title = title;
 
     this.shouldSortByPlayer = sortByRank;
@@ -100,17 +96,18 @@ export class SettingsService implements OnDestroy {
   resetEverything(): void {
     window.localStorage.clear();
 
-    this.numberOfRounds = +_.cloneDeep(this.NUMBER_OF_ROUNDS_DEFAULT);
-    this.numberOfPlayers = +_.cloneDeep(this.NUMBER_OF_PLAYERS_DEFAULT);
-    this.lastRoundNumber = +_.cloneDeep(this.LAST_ROUND_DEFAULT);
+    this.numberOfRounds = +_.cloneDeep(TEN);
+    this.numberOfPlayers = +_.cloneDeep(TEN);
+    this.lastRoundNumber = +_.cloneDeep(ZERO);
 
-    this.usePlayer = _.cloneDeep(this.getBoolean(this.USE_PLAYER_DEFAULT));
-    this.shouldSortByPlayer = _.cloneDeep(this.getBoolean(this.SORT_BY_PLAYER_DEFAULT));
-    this.showLastRoundScores = _.cloneDeep(this.getBoolean(this.SHOW_LAST_ROUND_DEFAULT));
-    this.applyScoresNextRound = _.cloneDeep(this.getBoolean(this.APPLY_SCORES_NEXT_ROUND_DEFAULT));
+    this.usePlayer = _.cloneDeep(this.getBoolean(TRUE_DEFAULT));
+    this.hasBonusRound = _.cloneDeep(this.getBoolean(FALSE_DEFAULT));
+    this.shouldSortByPlayer = _.cloneDeep(this.getBoolean(TRUE_DEFAULT));
+    this.showLastRoundScores = _.cloneDeep(this.getBoolean(TRUE_DEFAULT));
+    this.applyScoresNextRound = _.cloneDeep(this.getBoolean(TRUE_DEFAULT));
 
-    this.title = _.cloneDeep(this.TITLE_DEFAULT);
-    this.setColor(_.cloneDeep(this.COLOR_DEFAULT));
+    this.title = _.cloneDeep(TITLE_DEFAULT);
+    this.setColor(_.cloneDeep(COLOR_DEFAULT));
 
     this.resetScores(true);
     this.saveToLocalStorage();
@@ -251,10 +248,16 @@ export class SettingsService implements OnDestroy {
     let x: number;
     let total: number;
     for (i; i < this.numberOfPlayers; i++) {
+      let player = this.scores[i];
       x = 0;
       total = 0;
+      let minIndex = this.getMinIndex(player);
       for (x; x < this.numberOfRounds; x++) {
-        total += this.scores[i].score[x];
+        if (this.hasBonusRound && minIndex === x && player.bonus > player.score[x]) {
+          total += player.bonus;
+        } else {
+          total += player.score[x];
+        }
       }
 
       this.totals[i] = total;
@@ -263,10 +266,19 @@ export class SettingsService implements OnDestroy {
     this.saveToLocalStorage();
   }
 
+  private getMinIndex(player: PlayerModel): number {
+    if (this.lastRoundNumber >= this.numberOfRounds - 1) {
+      return player.score.indexOf(Math.min(...player.score));
+    } else {
+      return -1;
+    }
+  }
+
   public exportScoresToExcel(): void {
     const name: string = 'Name';
     const total: string = 'Total';
     const round: string = 'Round ';
+    const bonus: string = 'Bonus Round';
     let dataArray: any = [];
 
     let i: number = 0;
@@ -278,6 +290,10 @@ export class SettingsService implements OnDestroy {
 
       for (x; x < this.scores[i].score.length; x++) {
         data[round + (x + 1)] = this.scores[i].score[x];
+      }
+
+      if (this.hasBonusRound) {
+        data[bonus] = this.scores[i].bonus;
       }
 
       dataArray.push(data);
@@ -302,21 +318,22 @@ export class SettingsService implements OnDestroy {
   }
 
   private readFromLocalStorage(): void {
-    this.numberOfPlayers = +this.getNumberOfPlayersOrDefault();
-    this.numberOfRounds = +this.getNumberOfRoundsOrDefault();
-    this.lastRoundNumber = +this.getLastRoundOrDefault();
+    this.numberOfPlayers = +this.getItemOrDefault('players', TEN + '');
+    this.numberOfRounds = +this.getItemOrDefault('rounds', TEN + '');
+    this.lastRoundNumber = +this.getItemOrDefault('last-round', ZERO + '');
 
-    this.title = this.getTitleOrDefault();
+    this.title = this.getItemOrDefault('title', TITLE_DEFAULT);
 
-    this.shouldSortByPlayer = this.getBoolean(this.getSortByPlayerOrDefault());
-    this.showLastRoundScores = this.getBoolean(this.getShowLastRoundOrDefault());
-    this.usePlayer = this.getBoolean(this.getUsePlayerOrDefault());
-    this.applyScoresNextRound = this.getBoolean(this.getApplyScoresNextRoundOrDefault());
+    this.shouldSortByPlayer = this.getBoolean(this.getItemOrDefault('sort-by-player', TRUE_DEFAULT));
+    this.showLastRoundScores = this.getBoolean(this.getItemOrDefault('show-last-round', TRUE_DEFAULT));
+    this.usePlayer = this.getBoolean(this.getItemOrDefault('use-player', TRUE_DEFAULT));
+    this.hasBonusRound = this.getBoolean(this.getItemOrDefault('has-bonus-round', FALSE_DEFAULT));
+    this.applyScoresNextRound = this.getBoolean(this.getItemOrDefault('apply-scores-next-round', TRUE_DEFAULT));
 
     this.scores = this.getScoresOrDefault(false);
     this.totals = this.getTotalsOrDefault(false);
 
-    this.setColor(this.getColorOrDefault());
+    this.setColor(this.getItemOrDefault('color', COLOR_DEFAULT));
   }
 
   private getBoolean(value): boolean {
@@ -334,46 +351,7 @@ export class SettingsService implements OnDestroy {
   }
 
   private isNullOrUndefined(str: string): boolean {
-    if (str == null || str === undefined || str === 'undefined' || str === 'null') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private getNumberOfPlayersOrDefault(): string {
-    const players: string = window.localStorage.getItem('players');
-    return !this.isNullOrUndefined(players) ? players : _.cloneDeep(this.NUMBER_OF_PLAYERS_DEFAULT);
-  }
-
-  private getLastRoundOrDefault(): string {
-    const lastRound: string = window.localStorage.getItem('last-round');
-    return !this.isNullOrUndefined(lastRound) ? lastRound : _.cloneDeep(this.LAST_ROUND_DEFAULT);
-  }
-
-  private getNumberOfRoundsOrDefault(): string {
-    const rounds: string = window.localStorage.getItem('rounds');
-    return !this.isNullOrUndefined(rounds) ? rounds : _.cloneDeep(this.NUMBER_OF_ROUNDS_DEFAULT);
-  }
-
-  private getTitleOrDefault(): string {
-    const title: string = window.localStorage.getItem('title');
-    return !this.isNullOrUndefined(title) ? title : _.cloneDeep(this.TITLE_DEFAULT);
-  }
-
-  private getColorOrDefault(): string {
-    const color: string = window.localStorage.getItem('color');
-    return !this.isNullOrUndefined(color) ? color : _.cloneDeep(this.COLOR_DEFAULT);
-  }
-
-  private getShowLastRoundOrDefault(): string {
-    const showLastRound: string = window.localStorage.getItem('show-last-round');
-    return !this.isNullOrUndefined(showLastRound) ? showLastRound : _.cloneDeep(this.SHOW_LAST_ROUND_DEFAULT);
-  }
-
-  private getSortByPlayerOrDefault(): string {
-    const sortByRank: string = window.localStorage.getItem('sort-by-player');
-    return !this.isNullOrUndefined(sortByRank) ? sortByRank : _.cloneDeep(this.SORT_BY_PLAYER_DEFAULT);
+    return str == null || str === 'undefined' || str === 'null';
   }
 
   private getTotalsOrDefault(useDefault: boolean): number[] {
@@ -400,7 +378,8 @@ export class SettingsService implements OnDestroy {
       let i: number = 0;
       for (i; i < this.numberOfPlayers; i++) {
         let y: PlayerModel = {
-          score: []
+          score: [],
+          bonus: 0
         };
 
         let x: number = 0;
@@ -415,39 +394,71 @@ export class SettingsService implements OnDestroy {
     return value;
   }
 
-  private getApplyScoresNextRoundOrDefault(): string {
-    const applyNextRound: string = window.localStorage.getItem('apply-scores-next-round');
-    return !this.isNullOrUndefined(applyNextRound) ? applyNextRound : _.cloneDeep(this.APPLY_SCORES_NEXT_ROUND_DEFAULT);
+  private getItemOrDefault(key: string, defaultValue: string): string {
+    const item: string = window.localStorage.getItem(key);
+    return !this.isNullOrUndefined(item) ? item : _.cloneDeep(defaultValue);
   }
 
-  private getUsePlayerOrDefault(): string {
-    const usePlayer: string = window.localStorage.getItem('use-player');
-    return !this.isNullOrUndefined(usePlayer) ? usePlayer : _.cloneDeep(this.USE_PLAYER_DEFAULT);
-  }
-
-  //#endregion
-
-  //#region Save to Local Storage
   private saveToLocalStorage(): void {
-    window.localStorage.setItem('players', this.numberOfPlayers.toString());
-    window.localStorage.setItem('rounds', this.numberOfRounds.toString());
-    window.localStorage.setItem('last-round', this.lastRoundNumber.toString());
+    let items: LocalStorageSaveItem[] = [
+      new LocalStorageSaveItem({
+        key: 'players',
+        value: this.numberOfPlayers.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'rounds',
+        value: this.numberOfRounds.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'last-round',
+        value: this.lastRoundNumber.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'sort-by-player',
+        value: this.shouldSortByPlayer.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'show-last-round',
+        value: this.showLastRoundScores.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'use-player',
+        value: this.usePlayer.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'has-bonus-round',
+        value: this.hasBonusRound.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'apply-scores-next-round',
+        value: this.applyScoresNextRound.toString()
+      }),
+      new LocalStorageSaveItem({
+        key: 'title',
+        value: this.title
+      }),
+      new LocalStorageSaveItem({
+        key: 'scores',
+        value: JSON.stringify(this.scores)
+      }),
+      new LocalStorageSaveItem({
+        key: 'totals',
+        value: JSON.stringify(this.totals)
+      }),
+    ];
 
-    window.localStorage.setItem('sort-by-player', this.shouldSortByPlayer.toString());
-    window.localStorage.setItem('show-last-round', this.showLastRoundScores.toString());
-    window.localStorage.setItem('use-player', this.usePlayer.toString());
-    window.localStorage.setItem('apply-scores-next-round', this.applyScoresNextRound.toString());
-
-    window.localStorage.setItem('title', this.title);
+    items.forEach(item => {
+      this.saveItemToLocalStorage(item.key, item.value);
+    });
 
     this.saveColorToLocalStorage();
-    window.localStorage.setItem('scores', JSON.stringify(this.scores));
-    window.localStorage.setItem('totals', JSON.stringify(this.totals));
   }
 
   private saveColorToLocalStorage(): void {
     window.localStorage.setItem('color', this.color);
   }
 
-  //#endregion
+  private saveItemToLocalStorage(key: string, value: string): void {
+    window.localStorage.setItem(key, value);
+  }
 }
