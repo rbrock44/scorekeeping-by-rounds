@@ -69,3 +69,10 @@ export const EXCEL_EXTENSION = '.xlsx';
 export function addedSuccessfully(value: string): string {
   return `${value} added successfully`;
 }
+
+export function setAll(array, value) {
+  var i, n = array.length;
+  for (i = 0; i < n; ++i) {
+      array[i] = value;
+  }
+}

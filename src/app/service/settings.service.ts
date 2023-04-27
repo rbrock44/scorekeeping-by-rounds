@@ -5,7 +5,7 @@ import {PlayerModel} from '../model/player.model';
 import {PlayerScoreModel} from '../model/player-score.model';
 import {ExcelService} from './excel.service';
 import {LocalStorageSaveItem} from '../model/local-storage-save-item.model';
-import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO} from '../constants/constants';
+import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO, setAll} from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,12 @@ export class SettingsService implements OnDestroy {
   private _lastRoundUpdatedSubject: Subject<PlayerScoreModel[]> = new Subject<PlayerScoreModel[]>();
   // tslint:disable-next-line:variable-name
   private _settingsResetSubject: Subject<boolean> = new Subject<boolean>();
+
+  // ranking
+  // score entry
+  // bonus entry
+  // settings
+  show = [true, false, false, false]
 
   title: string;
   shouldSortByPlayer: boolean;
@@ -55,6 +61,11 @@ export class SettingsService implements OnDestroy {
 
   get settingsReset(): Observable<boolean> {
     return this._settingsResetSubject;
+  }
+
+  showPage(index: number) {
+    setAll(this.show, false);
+    this.show[index] = true;
   }
 
   setColor(value: string): void {

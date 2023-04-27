@@ -17,6 +17,7 @@ import {AlertModule} from './component/alert/alert.module';
 import {ExcelService} from './service/excel.service';
 import {SettingsService} from './service/settings.service';
 import {BonusEntryComponent} from './page/bonus-entry/bonus-entry.component';
+import { MainComponent } from './page/main/main.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {BonusEntryComponent} from './page/bonus-entry/bonus-entry.component';
     BonusEntryComponent,
     ConfirmationPopupComponent,
     HeaderComponent,
+    MainComponent,
     RankingPageComponent,
     ScoreEntryPageComponent,
     SettingsComponent,
