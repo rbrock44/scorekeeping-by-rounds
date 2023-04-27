@@ -38,7 +38,7 @@ import { SettingsService } from '../../service/settings.service';
 })
 export class HeaderComponent {
 
-  constructor(private service: SettingsService) {
+  constructor(public service: SettingsService) {
   }
 
   click(index: number): void {
