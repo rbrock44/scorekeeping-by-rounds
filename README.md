@@ -1,5 +1,9 @@
 # Scorekeeping By Rounds
 
+[Live Website](https://rbrock44.github.io/scorekeeping-by-rounds/)
+
+![Main webpage - Ranking](/pics/ranking-page.png)
+
 This application was created to keep score of players or teams for any number of rounds (including a bonus round)
 
 This application does support having 2 screens of the webpage open at once. For example you could have the 'Ranking' page on a different screen/monitor as the 'Score Entry' page and the 'Ranking' page will update the scores between 1-20 seconds of entering them
@@ -7,6 +11,8 @@ This application does support having 2 screens of the webpage open at once. For 
 
 
 # Settings Page
+
+![Settings webpage](/pics/settings-page.png)
 
 Settings - Description
 
@@ -31,9 +37,13 @@ Export Scores - Exports the current scores to an excel document (hopefully you'd
 
 # Score Entry Page
 
+![Score entry webpage](/pics/score-entry-page.png)
+
 Allows the user to navigate to different rounds and input each player's/team's score for the round <br/>
 The 'Apply' button must be clicked in order for the scored to be saved <br/>
 
 # Rankings Page
+
+![Ranking webpage](/pics/ranking-page.png)
 
 Shows the total scores and depending on the settings it will show the last round entered scores <br/>
