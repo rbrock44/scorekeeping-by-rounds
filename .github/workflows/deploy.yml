@@ -8,11 +8,6 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: write 
-      id-token: write 
-      pages: write
 
     steps:
     - name: Checkout repository
@@ -21,22 +16,20 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: '16'
+        cache: 'npm'
 
     - name: Install dependencies
       run: npm ci
 
-    - name: Build project
+    - name: Configure npm Authentication
+      run: echo "//registry.npmjs.org/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+
+    - name: Build Project
       run: npm run deploy
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v2
-
-    - name: Upload Artifact
-      uses: actions/upload-pages-artifact@v2
-      with:
-        path: dist/scorekeeping-by-rounds
-        
     - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v3
-      id: deployment
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist/scorekeeping-by-rounds  
