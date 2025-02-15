@@ -1,6 +1,6 @@
 # Scorekeeping By Rounds
 
-[Live Website](https://rbrock44.github.io/scorekeeping-by-rounds/)
+[Live Website](https://scorekeeping-by-rounds.ryan-brock.com/)
 
 ![Main webpage - Ranking](/pics/ranking-page.png)
 
