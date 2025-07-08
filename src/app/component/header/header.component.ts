@@ -40,7 +40,10 @@ import { Location } from '@angular/common';
 })
 export class HeaderComponent {
 
-  constructor(public service: SettingsService) {
+  constructor(
+    public service: SettingsService,
+    private location: Location
+  ) {
   }
 
   click(index: number): void {
