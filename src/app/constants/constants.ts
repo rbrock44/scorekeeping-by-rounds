@@ -80,5 +80,6 @@ export function setAll(array, value) {
 export enum Pages {
  Rankings,
  ScoreEntry,
+ BonusRoundEntry,
  Settings
 }
