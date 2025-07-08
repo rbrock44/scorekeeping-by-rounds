@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../service/settings.service';
+import { Pages } from '../../constants/constants';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -42,6 +44,14 @@ export class HeaderComponent {
   }
 
   click(index: number): void {
+    const urlParam = Pages[index];
+    if (urlParam !== 'Rankings') {
+      const queryParams = new URLSearchParams()
+      queryParams.set('page', urlParam);
+      this.location.replaceState(`${location.pathname}?${queryParams.toString()}`);
+    } else {
+      this.location.replaceState(`${location.pathname}`);
+    }
     this.service.showPage(index);
   }
 }

@@ -54,6 +54,13 @@ export class RankingPageComponent implements OnInit, OnDestroy {
       this.settingsService.readLocalStorage();
     }, 20000);
     // 20000 = 20 seconds
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const pageParam = queryParams.get('page');
+
+    if (pageParam) {
+      this.settingsService.showPageWithUrlParam(pageParam);
+    }
   }
 
   ngOnDestroy(): void {

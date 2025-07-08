@@ -5,7 +5,7 @@ import {PlayerModel} from '../model/player.model';
 import {PlayerScoreModel} from '../model/player-score.model';
 import {ExcelService} from './excel.service';
 import {LocalStorageSaveItem} from '../model/local-storage-save-item.model';
-import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO, setAll} from '../constants/constants';
+import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO, setAll, Pages} from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +66,11 @@ export class SettingsService implements OnDestroy {
   showPage(index: number) {
     setAll(this.show, false);
     this.show[index] = true;
+  }
+
+  showPageWithUrlParam(param: string): void {
+    const index = Pages[param];
+    this.showPage(index);
   }
 
   setColor(value: string): void {

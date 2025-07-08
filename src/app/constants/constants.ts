@@ -76,3 +76,9 @@ export function setAll(array, value) {
       array[i] = value;
   }
 }
+
+export enum Pages {
+ Rankings,
+ ScoreEntry,
+ Settings
+}
