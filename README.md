@@ -28,7 +28,9 @@
 
 This single page angular frontend was created keep score of players or teams for any number of rounds (including a bonus round) <br/>
 
-This application does support having 2 screens of the webpage open at once. For example you could have the 'Ranking' page on a different screen/monitor as the 'Score Entry' page and the 'Ranking' page will update the scores between 1-20 seconds of entering them
+This application does support having 2 screens of the webpage open at once. For example you could have the 'Ranking' page on a different screen/monitor as the 'Score Entry' page and the 'Ranking' page will update the scores between 1-20 seconds of entering them <br/><br/>
+
+I was inspired to create this after attending a STL Team Transplant Trivia where they kept score for over 100 tables on an excel sheet. I met with the lady in charge and she said, we can't pay for it (being a non-profit) but would use software if I made. I was able to fulfill that request
 
 ---
 
