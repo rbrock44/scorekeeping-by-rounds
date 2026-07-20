@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {ConfirmationPopupComponent} from '../../component/confirmation-popup/confirmation-popup.component';
 import {AlertService} from '../../service/alert.service';
@@ -23,28 +23,28 @@ import {
 export class SettingsComponent implements OnInit, OnDestroy {
   colors = COLOR_OPTIONS;
 
-  numberOfRoundsControl: FormControl = new FormControl('', [
+  numberOfRoundsControl: UntypedFormControl = new UntypedFormControl('', [
     Validators.min(1),
     Validators.max(1000),
     Validators.pattern('^[0-9.]*$'),
     Validators.required
   ]);
-  numberOfPlayersControl: FormControl = new FormControl('', [
+  numberOfPlayersControl: UntypedFormControl = new UntypedFormControl('', [
     Validators.min(1),
     Validators.max(1000),
     Validators.pattern('^[0-9.]*$'),
     Validators.required
   ]);
 
-  titleControl: FormControl = new FormControl('', [Validators.required]);
-  shouldSortByPlayerControl: FormControl = new FormControl('', [Validators.required]);
-  showLastRoundControl: FormControl = new FormControl('', [Validators.required]);
-  usePlayerControl: FormControl = new FormControl('', [Validators.required]);
-  bonusRoundControl: FormControl = new FormControl('', [Validators.required]);
-  applyNextRoundControl: FormControl = new FormControl('', [Validators.required]);
-  colorControl: FormControl = new FormControl('', [Validators.required]);
+  titleControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
+  shouldSortByPlayerControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
+  showLastRoundControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
+  usePlayerControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
+  bonusRoundControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
+  applyNextRoundControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
+  colorControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
 
-  settingsFormGroup: FormGroup;
+  settingsFormGroup: UntypedFormGroup;
 
   constructor(public dialog: MatDialog,
               private alertService: AlertService,
@@ -52,7 +52,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.settingsFormGroup = new FormGroup({
+    this.settingsFormGroup = new UntypedFormGroup({
       numberOfPlayers: this.numberOfPlayersControl,
       numberOfRounds: this.numberOfRoundsControl,
       title: this.titleControl,

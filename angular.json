@@ -104,18 +104,6 @@
             "scripts": []
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "scorekeeping-by-rounds:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "scorekeeping-by-rounds:serve:production"
-            }
-          }
-        },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {}
@@ -132,8 +120,9 @@
       }
     }
   },
-  "defaultProject": "scorekeeping-by-rounds",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

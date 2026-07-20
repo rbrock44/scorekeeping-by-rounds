@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../service/alert.service';
 
 @Component({
@@ -66,7 +66,7 @@ import {AlertService} from '../../service/alert.service';
 })
 export class ScoreEntryPageComponent implements OnInit, OnDestroy {
   roundNumber: number;
-  scoreEntryFormGroup: FormGroup = new FormGroup({});
+  scoreEntryFormGroup: UntypedFormGroup = new UntypedFormGroup({});
   isFormGroupLoaded: boolean = false;
   players: number[] = [];
 
@@ -96,7 +96,7 @@ export class ScoreEntryPageComponent implements OnInit, OnDestroy {
     let i: number = 0;
     for (i; i < this.settingsService.numberOfPlayers; i++) {
       this.players.push(i);
-      let formControl: FormControl = new FormControl('', [Validators.required, Validators.max(1000)]);
+      let formControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.max(1000)]);
       this.scoreEntryFormGroup.addControl(i.toString(), formControl);
     }
 

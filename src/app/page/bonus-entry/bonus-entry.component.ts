@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../service/alert.service';
 
 @Component({
@@ -44,7 +44,7 @@ import {AlertService} from '../../service/alert.service';
   styleUrls: ['./bonus-entry.component.scss']
 })
 export class BonusEntryComponent implements OnInit, OnDestroy {
-  formGroup: FormGroup = new FormGroup({});
+  formGroup: UntypedFormGroup = new UntypedFormGroup({});
   isFormGroupLoaded: boolean = false;
   players: number[] = [];
 
@@ -73,7 +73,7 @@ export class BonusEntryComponent implements OnInit, OnDestroy {
     let i: number = 0;
     for (i; i < this.settingsService.numberOfPlayers; i++) {
       this.players.push(i);
-      let formControl: FormControl = new FormControl('', [Validators.required, Validators.max(1000)]);
+      let formControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.max(1000)]);
       this.formGroup.addControl(i.toString(), formControl);
     }
 
