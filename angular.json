@@ -72,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "scorekeeping-by-rounds:build"
+            "buildTarget": "scorekeeping-by-rounds:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "scorekeeping-by-rounds:build:production"
+              "buildTarget": "scorekeeping-by-rounds:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "scorekeeping-by-rounds:build"
+            "buildTarget": "scorekeeping-by-rounds:build"
           }
         },
         "test": {
