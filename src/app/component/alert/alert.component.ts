@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {NavigationStart, Router} from '@angular/router';
 import {Alert, AlertType} from '../../model/alert.model';
@@ -17,15 +17,15 @@ import { NgFor } from '@angular/common';
     imports: [NgFor]
 })
 export class AlertComponent implements OnInit, OnDestroy {
+  private router = inject(Router);
+  private alertService = inject(AlertService);
+
   @Input() id = 'default-alert';
   @Input() fade = true;
 
   alerts: Alert[] = [];
   alertSubscription: Subscription;
   routeSubscription: Subscription;
-
-  constructor(private router: Router, private alertService: AlertService) {
-  }
 
   ngOnInit(): void {
     // subscribe to new alert notifications

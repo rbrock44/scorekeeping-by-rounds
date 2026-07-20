@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AlertService} from '../../service/alert.service';
@@ -69,14 +69,13 @@ import { MatInput } from '@angular/material/input';
     imports: [NgIf, NgFor, MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError]
 })
 export class ScoreEntryPageComponent implements OnInit, OnDestroy {
+  private alertService = inject(AlertService);
+  settingsService = inject(SettingsService);
+
   roundNumber: number;
   scoreEntryFormGroup: UntypedFormGroup = new UntypedFormGroup({});
   isFormGroupLoaded: boolean = false;
   players: number[] = [];
-
-  constructor(private alertService: AlertService,
-              public settingsService: SettingsService) {
-  }
 
   ngOnInit(): void {
     this.settingsService.settingsReset.subscribe(scores => {

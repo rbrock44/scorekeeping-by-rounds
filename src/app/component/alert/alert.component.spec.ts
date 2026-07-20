@@ -19,7 +19,7 @@ describe('AlertComponent', () => {
     ]
 }).compileComponents();
 
-    service = TestBed.get(AlertService);
+    service = TestBed.inject(AlertService);
     fixture = TestBed.createComponent(AlertComponent);
     component = fixture.debugElement.componentInstance;
   }));

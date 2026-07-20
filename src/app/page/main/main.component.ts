@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SettingsService } from 'src/app/service/settings.service';
 import { NgIf } from '@angular/common';
 import { RankingPageComponent } from '../ranking-page/ranking-page.component';
@@ -12,8 +12,6 @@ import { SettingsComponent } from '../settings/settings.component';
     styleUrls: ['./main.component.scss'],
     imports: [NgIf, RankingPageComponent, ScoreEntryPageComponent, BonusEntryComponent, SettingsComponent]
 })
-export class MainComponent {
-  constructor(
-    public service: SettingsService
-  ) { }
+export class MainComponent {  service = inject(SettingsService);
+
 }

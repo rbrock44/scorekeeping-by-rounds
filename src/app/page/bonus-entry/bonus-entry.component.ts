@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AlertService} from '../../service/alert.service';
@@ -48,13 +48,12 @@ import { MatInput } from '@angular/material/input';
     imports: [NgIf, NgFor, MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError]
 })
 export class BonusEntryComponent implements OnInit, OnDestroy {
+  private alertService = inject(AlertService);
+  settingsService = inject(SettingsService);
+
   formGroup: UntypedFormGroup = new UntypedFormGroup({});
   isFormGroupLoaded: boolean = false;
   players: number[] = [];
-
-  constructor(private alertService: AlertService,
-              public settingsService: SettingsService) {
-  }
 
   ngOnInit(): void {
     this.settingsService.settingsReset.subscribe(scores => {

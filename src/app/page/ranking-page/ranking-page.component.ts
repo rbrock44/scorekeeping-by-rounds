@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import {PlayerScoreModel} from '../../model/player-score.model';
 import { NgFor, NgIf } from '@angular/common';
@@ -39,14 +39,13 @@ import { NgFor, NgIf } from '@angular/common';
     imports: [NgFor, NgIf]
 })
 export class RankingPageComponent implements OnInit, OnDestroy {
+  settingsService = inject(SettingsService);
+
   overallScores: PlayerScoreModel[];
   lastRoundScores: PlayerScoreModel[];
 
   lastRoundNumber: number = 1;
   title: string = '';
-
-  constructor(public settingsService: SettingsService) {
-  }
 
   ngOnInit() {
     this.getSubscriptionsStarted();

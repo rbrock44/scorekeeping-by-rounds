@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SettingsService } from '../../service/settings.service';
 import { Pages } from '../../constants/constants';
 import { Location, NgIf } from '@angular/common';
@@ -40,12 +40,9 @@ import { Location, NgIf } from '@angular/common';
     imports: [NgIf]
 })
 export class HeaderComponent {
+  service = inject(SettingsService);
+  private location = inject(Location);
 
-  constructor(
-    public service: SettingsService,
-    private location: Location
-  ) {
-  }
 
   click(index: number): void {
     const urlParam = Pages[index];

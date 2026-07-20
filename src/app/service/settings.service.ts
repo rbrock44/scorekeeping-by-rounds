@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import * as _ from 'lodash';
 import {Observable, Subject} from 'rxjs';
 import {PlayerModel} from '../model/player.model';
@@ -11,6 +11,8 @@ import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO, se
   providedIn: 'root'
 })
 export class SettingsService implements OnDestroy {
+  private excelService = inject(ExcelService);
+
   private _scoresUpdatedSubject: Subject<PlayerScoreModel[]> = new Subject<PlayerScoreModel[]>();
   private _lastRoundUpdatedSubject: Subject<PlayerScoreModel[]> = new Subject<PlayerScoreModel[]>();
   private _settingsResetSubject: Subject<boolean> = new Subject<boolean>();
@@ -39,7 +41,7 @@ export class SettingsService implements OnDestroy {
   TEAMS: string = 'Teams';
   PLAYERS: string = 'Players';
 
-  constructor(private excelService: ExcelService) {
+  constructor() {
     this.readFromLocalStorage();
     this.resetScores(false);
   }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import {SettingsService} from './service/settings.service';
 import { HeaderComponent } from './component/header/header.component';
 import { AlertComponent } from './component/alert/alert.component';
@@ -19,10 +19,9 @@ import { RouterOutlet } from '@angular/router';
     imports: [HeaderComponent, RouterOutlet, AlertComponent]
 })
 export class AppComponent implements OnDestroy {
-  title = 'scorekeeping-by-rounds';
+  private settingsService = inject(SettingsService);
 
-  constructor(private settingsService: SettingsService) {
-  }
+  title = 'scorekeeping-by-rounds';
 
   ngOnDestroy(): void {
     this.settingsService.ngOnDestroy();

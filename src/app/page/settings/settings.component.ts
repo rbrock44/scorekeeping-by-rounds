@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -28,6 +28,10 @@ import { MatOption } from '@angular/material/core';
     imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, YesNoDropdownComponent, MatLabel, MatSelect, NgStyle, NgFor, MatOption]
 })
 export class SettingsComponent implements OnInit, OnDestroy {
+  dialog = inject(MatDialog);
+  private alertService = inject(AlertService);
+  settingsService = inject(SettingsService);
+
   colors = COLOR_OPTIONS;
 
   numberOfRoundsControl: UntypedFormControl = new UntypedFormControl('', [
@@ -52,11 +56,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   colorControl: UntypedFormControl = new UntypedFormControl('', [Validators.required]);
 
   settingsFormGroup: UntypedFormGroup;
-
-  constructor(public dialog: MatDialog,
-              private alertService: AlertService,
-              public settingsService: SettingsService) {
-  }
 
   ngOnInit() {
     this.settingsFormGroup = new UntypedFormGroup({
