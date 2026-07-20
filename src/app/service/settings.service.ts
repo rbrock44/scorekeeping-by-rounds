@@ -11,11 +11,11 @@ import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO, se
   providedIn: 'root'
 })
 export class SettingsService implements OnDestroy {
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle,id-blacklist,id-match
   private _scoresUpdatedSubject: Subject<PlayerScoreModel[]> = new Subject<PlayerScoreModel[]>();
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle,id-blacklist,id-match
   private _lastRoundUpdatedSubject: Subject<PlayerScoreModel[]> = new Subject<PlayerScoreModel[]>();
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
   private _settingsResetSubject: Subject<boolean> = new Subject<boolean>();
 
   // ranking

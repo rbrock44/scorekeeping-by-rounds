@@ -24,36 +24,35 @@ import {BonusEntryComponent} from './page/bonus-entry/bonus-entry.component';
 import { MainComponent } from './page/main/main.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BonusEntryComponent,
-    ConfirmationPopupComponent,
-    HeaderComponent,
-    MainComponent,
-    RankingPageComponent,
-    ScoreEntryPageComponent,
-    SettingsComponent,
-    YesNoDropdownComponent,
-  ],
-  entryComponents: [ConfirmationPopupComponent],
-  imports: [
-    AlertModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatOptionModule,
-    MatSelectModule
-  ],
-  providers: [
-    ExcelService,
-    SettingsService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        BonusEntryComponent,
+        ConfirmationPopupComponent,
+        HeaderComponent,
+        MainComponent,
+        RankingPageComponent,
+        ScoreEntryPageComponent,
+        SettingsComponent,
+        YesNoDropdownComponent,
+    ],
+    imports: [
+        AlertModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatOptionModule,
+        MatSelectModule
+    ],
+    providers: [
+        ExcelService,
+        SettingsService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
