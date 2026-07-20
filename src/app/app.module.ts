@@ -9,7 +9,11 @@ import {ScoreEntryPageComponent} from './page/score-entry-page/score-entry-page.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HeaderComponent} from './component/header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDialogModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule} from '@angular/material';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import {YesNoDropdownComponent} from './component/yes-no-dropdown/yes-no-dropdown.component';
 import {CommonModule} from '@angular/common';
 import {ConfirmationPopupComponent} from './component/confirmation-popup/confirmation-popup.component';
