@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AlertService} from '../../service/alert.service';
-import { NgIf, NgFor } from '@angular/common';
+
 import { MatFormField, MatError } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 
@@ -18,55 +18,61 @@ import { MatInput } from '@angular/material/input';
         <div data-round-pagination-buttons>
           <button data-button-previous-round (click)="previousRound()" [disabled]="roundNumber === 0" class="pagination-button"><</button>
           <button data-button-next-round
-                  (click)="nextRound()"
-                  [disabled]="roundNumber === this.settingsService.numberOfRounds - 1"
-                  class="pagination-button">>
+            (click)="nextRound()"
+            [disabled]="roundNumber === this.settingsService.numberOfRounds - 1"
+            class="pagination-button">>
           </button>
         </div>
         <div>
           <button data-button-apply
-                  (click)="recordScores()"
-                  [disabled]="!this.scoreEntryFormGroup.valid"
-                  class="apply-button">Apply
+            (click)="recordScores()"
+            [disabled]="!this.scoreEntryFormGroup.valid"
+            class="apply-button">Apply
           </button>
         </div>
       </div>
-      <div *ngIf="isFormGroupLoaded" data-score-entry-ctn class="score-entry-ctn">
-        <div *ngFor="let i of players" data-for-each-player>
-          <div data-player-label>{{this.settingsService.getPlayerName(i)}}</div>
-          <mat-form-field class="player-score-form-field">
-            <input matInput data-score-entry-input
-                   type="number"
-                   rows="1"
-                   [formControl]="scoreEntryFormGroup.get(i.toString())"
-            >
-            <mat-error data-basic-error *ngIf="!scoreEntryFormGroup.get(i.toString()).valid">
-              Enter {{this.settingsService.usePlayer ? this.settingsService.PLAYER : this.settingsService.TEAM}}'s score
-            </mat-error>
-          </mat-form-field>
+      @if (isFormGroupLoaded) {
+        <div data-score-entry-ctn class="score-entry-ctn">
+          @for (i of players; track i) {
+            <div data-for-each-player>
+              <div data-player-label>{{this.settingsService.getPlayerName(i)}}</div>
+              <mat-form-field class="player-score-form-field">
+                <input matInput data-score-entry-input
+                  type="number"
+                  rows="1"
+                  [formControl]="scoreEntryFormGroup.get(i.toString())"
+                  >
+                @if (!scoreEntryFormGroup.get(i.toString()).valid) {
+                  <mat-error data-basic-error>
+                    Enter {{this.settingsService.usePlayer ? this.settingsService.PLAYER : this.settingsService.TEAM}}'s score
+                  </mat-error>
+                }
+              </mat-form-field>
+            </div>
+          }
         </div>
-      </div>
+      }
       <div class="button-div">
         <div>
           <button data-button-apply-2
-                  (click)="recordScores()"
-                  [disabled]="!this.scoreEntryFormGroup.valid"
-                  class="apply-button">Apply
+            (click)="recordScores()"
+            [disabled]="!this.scoreEntryFormGroup.valid"
+            class="apply-button">Apply
           </button>
         </div>
         <div data-round-pagination-buttons-2>
           <button data-button-previous-round-2 (click)="previousRound()" [disabled]="roundNumber === 0" class="pagination-button"><</button>
           <button data-button-next-round-2
-                  (click)="nextRound()"
-                  [disabled]="roundNumber === this.settingsService.numberOfRounds - 1"
-                  class="pagination-button">>
+            (click)="nextRound()"
+            [disabled]="roundNumber === this.settingsService.numberOfRounds - 1"
+            class="pagination-button">>
           </button>
         </div>
       </div>
     </div>
-  `,
+    `,
     styleUrls: ['./score-entry-page.component.scss'],
-    imports: [NgIf, NgFor, MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError]
+    imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError]
 })
 export class ScoreEntryPageComponent implements OnInit, OnDestroy {
   private alertService = inject(AlertService);

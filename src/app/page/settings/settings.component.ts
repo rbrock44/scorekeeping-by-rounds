@@ -16,7 +16,7 @@ import {
 } from '../../constants/constants';
 import { MatFormField, MatError, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { NgIf, NgStyle, NgFor } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { YesNoDropdownComponent } from '../../component/yes-no-dropdown/yes-no-dropdown.component';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
@@ -25,7 +25,7 @@ import { MatOption } from '@angular/material/core';
     selector: 'app-settings-page',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
-    imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, YesNoDropdownComponent, MatLabel, MatSelect, NgStyle, NgFor, MatOption]
+    imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError, YesNoDropdownComponent, MatLabel, MatSelect, NgStyle, MatOption]
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   dialog = inject(MatDialog);

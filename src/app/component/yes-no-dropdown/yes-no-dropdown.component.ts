@@ -3,7 +3,7 @@ import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/f
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-yes-no-dropdown',
@@ -16,7 +16,7 @@ import { NgClass, NgIf } from '@angular/common';
         <mat-form-field class="dropdown-form-field">
           <mat-label>Select Value</mat-label>
           <mat-select [formControl]="control" (selectionChange)="onChange()"
-                      [id]="htmlId">
+            [id]="htmlId">
             <mat-option data-dropdown-option [value]="true" [ngClass]="className">
               {{yesOption}}
             </mat-option>
@@ -24,15 +24,17 @@ import { NgClass, NgIf } from '@angular/common';
               {{noOption}}
             </mat-option>
           </mat-select>
-          <mat-error data-basic-error *ngIf="!control.valid">
-            {{name}} is required
-          </mat-error>
+          @if (!control.valid) {
+            <mat-error data-basic-error>
+              {{name}} is required
+            </mat-error>
+          }
         </mat-form-field>
       </div>
     </div>
-  `,
+    `,
     styleUrls: ['./yes-no-dropdown.component.scss'],
-    imports: [MatFormField, MatLabel, MatSelect, FormsModule, ReactiveFormsModule, MatOption, NgClass, NgIf, MatError]
+    imports: [MatFormField, MatLabel, MatSelect, FormsModule, ReactiveFormsModule, MatOption, NgClass, MatError]
 })
 export class YesNoDropdownComponent {
   @Input() control: UntypedFormControl;

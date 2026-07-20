@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import {PlayerScoreModel} from '../../model/player-score.model';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-ranking-page',
@@ -10,33 +10,39 @@ import { NgFor, NgIf } from '@angular/common';
       <div class="header-div">
         <header data-header-title>{{this.title}}</header>
       </div>
-
+    
       <div data-score-div class="score-div-ctn">
         <div data-overall-score-ctn class="score-ctn">
           <div data-overall-score-label class="score-title">Overall Score</div>
           <div class="player-score-ctn">
-            <div *ngFor="let sc of overallScores" class="player-score-value">
-              <div data-overall-value-name class="player-label">{{sc.player}}</div>&nbsp;
-              <div data-overall-value-score>{{sc.totalScore}}</div>
-            </div>
+            @for (sc of overallScores; track sc) {
+              <div class="player-score-value">
+                <div data-overall-value-name class="player-label">{{sc.player}}</div>&nbsp;
+                <div data-overall-value-score>{{sc.totalScore}}</div>
+              </div>
+            }
           </div>
         </div>
-
-        <div *ngIf="settingsService.showLastRoundScores" data-last-round-score-ctn class="score-ctn">
-          <div data-last-round-score-label class="score-title">Last Round ({{this.lastRoundNumber + 1}}) Scores</div>
-          <div class="player-score-ctn">
-            <div *ngFor="let sc of lastRoundScores" class="player-score-value">
-              <div data-last-round-value-name class="player-label">{{sc.player}}</div>&nbsp;
-              <div data-last-round-value-score>{{sc.totalScore}}</div>
+    
+        @if (settingsService.showLastRoundScores) {
+          <div data-last-round-score-ctn class="score-ctn">
+            <div data-last-round-score-label class="score-title">Last Round ({{this.lastRoundNumber + 1}}) Scores</div>
+            <div class="player-score-ctn">
+              @for (sc of lastRoundScores; track sc) {
+                <div class="player-score-value">
+                  <div data-last-round-value-name class="player-label">{{sc.player}}</div>&nbsp;
+                  <div data-last-round-value-score>{{sc.totalScore}}</div>
+                </div>
+              }
             </div>
           </div>
-        </div>
+        }
       </div>
-
+    
     </div>
-  `,
+    `,
     styleUrls: ['./ranking-page.component.scss'],
-    imports: [NgFor, NgIf]
+    imports: []
 })
 export class RankingPageComponent implements OnInit, OnDestroy {
   settingsService = inject(SettingsService);
