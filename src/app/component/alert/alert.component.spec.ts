@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {AlertService} from '../../service/alert.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AlertComponent} from './alert.component';
@@ -8,7 +8,7 @@ describe('AlertComponent', () => {
   let component;
   let service: AlertService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule

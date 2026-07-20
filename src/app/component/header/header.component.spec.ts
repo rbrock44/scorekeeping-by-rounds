@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {HeaderComponent} from './header.component';
 import {expectElementToContainContentAtIndex} from '../../constants/expectations.spec';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -14,7 +14,7 @@ describe('HeaderComponent', () => {
     'Settings'
   ];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule

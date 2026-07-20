@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {BonusEntryComponent} from './bonus-entry.component';
 import {CommonModule} from '@angular/common';
@@ -14,7 +14,7 @@ describe('ScoreEntryPageComponent', () => {
   let component: BonusEntryComponent;
   let fixture: ComponentFixture<BonusEntryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
