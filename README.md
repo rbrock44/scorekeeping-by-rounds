@@ -83,7 +83,7 @@ Shows the total scores and depending on the settings it will show the last round
 
 ## 🛠 Technologies
 
-- Framework: `Angular 8`
+- Framework: `Angular 22`
 - Testing: `Karma`
 - Deployment: `GitHub Pages`
 
@@ -91,7 +91,7 @@ Shows the total scores and depending on the settings it will show the last round
 
 ## 🚀 Getting Started (Local Setup)
 
-* Install [node](https://nodejs.org/en) - v16 is needed
+* Install [node](https://nodejs.org/en) - v24 is needed
 * Clone [repo](https://github.com/rbrock44/scorekeeping-by-rounds)
 
 ---
