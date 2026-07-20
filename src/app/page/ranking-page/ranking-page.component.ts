@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import {PlayerScoreModel} from '../../model/player-score.model';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-ranking-page',
-  template: `
+    selector: 'app-ranking-page',
+    template: `
     <div>
       <div class="header-div">
         <header data-header-title>{{this.title}}</header>
@@ -34,7 +35,8 @@ import {PlayerScoreModel} from '../../model/player-score.model';
 
     </div>
   `,
-  styleUrls: ['./ranking-page.component.scss']
+    styleUrls: ['./ranking-page.component.scss'],
+    imports: [NgFor, NgIf]
 })
 export class RankingPageComponent implements OnInit, OnDestroy {
   overallScores: PlayerScoreModel[];

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ScoreEntryPageComponent} from './score-entry-page.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MaterialModule} from '../../material.module';
+
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AlertService} from '../../service/alert.service';
@@ -16,23 +16,20 @@ describe('ScoreEntryPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        FormsModule,
-        MaterialModule,
-        NoopAnimationsModule,
-        ReactiveFormsModule,
-        RouterTestingModule,
-      ],
-      declarations: [
-        ScoreEntryPageComponent,
-      ],
-      providers: [
+    imports: [
+    CommonModule,
+    FormsModule,
+    NoopAnimationsModule,
+    ReactiveFormsModule,
+    RouterTestingModule,
+    ScoreEntryPageComponent
+],
+    providers: [
         AlertService,
         ExcelService,
         SettingsService
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

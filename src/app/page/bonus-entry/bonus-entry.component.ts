@@ -1,11 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
-import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AlertService} from '../../service/alert.service';
+import { NgIf, NgFor } from '@angular/common';
+import { MatFormField, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
-  selector: 'app-bonus-entry',
-  template: `
+    selector: 'app-bonus-entry',
+    template: `
     <div>
       <div class="header-div">
         <header data-header-title id="score-title">Bonus Entry</header>
@@ -41,7 +44,8 @@ import {AlertService} from '../../service/alert.service';
       </div>
     </div>
   `,
-  styleUrls: ['./bonus-entry.component.scss']
+    styleUrls: ['./bonus-entry.component.scss'],
+    imports: [NgIf, NgFor, MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError]
 })
 export class BonusEntryComponent implements OnInit, OnDestroy {
   formGroup: UntypedFormGroup = new UntypedFormGroup({});

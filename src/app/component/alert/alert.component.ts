@@ -3,16 +3,18 @@ import {Subscription} from 'rxjs';
 import {NavigationStart, Router} from '@angular/router';
 import {Alert, AlertType} from '../../model/alert.model';
 import {AlertService} from '../../service/alert.service';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-alert',
-  template: `
+    selector: 'app-alert',
+    template: `
     <div *ngFor="let alert of alerts" class="{{cssClass(alert)}}" data-alert-container>
       <a class="close" (click)="removeAlert(alert)" data-a>&times;</a>
       <span [innerHTML]="alert.message" data-span></span>
     </div>
   `,
-  styleUrls: ['./alert.component.scss']
+    styleUrls: ['./alert.component.scss'],
+    imports: [NgFor]
 })
 export class AlertComponent implements OnInit, OnDestroy {
   @Input() id = 'default-alert';

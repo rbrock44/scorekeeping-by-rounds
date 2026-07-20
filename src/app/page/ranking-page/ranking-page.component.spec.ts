@@ -9,12 +9,12 @@ describe('RankingPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [RankingPageComponent],
-      providers: [
+    imports: [RankingPageComponent],
+    providers: [
         ExcelService,
         SettingsService
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

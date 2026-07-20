@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { SettingsService } from '../../service/settings.service';
 import { Pages } from '../../constants/constants';
-import { Location } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
-  template: `
+    selector: 'app-header',
+    template: `
     <div>
       <div class="nav-bar-bar">
         <nav mat-tab-nav-bar>
@@ -36,7 +36,8 @@ import { Location } from '@angular/common';
       </div>
     </div>
   `,
-  styleUrls: ['./header.component.scss']
+    styleUrls: ['./header.component.scss'],
+    imports: [NgIf]
 })
 export class HeaderComponent {
 

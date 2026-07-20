@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
-import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {ConfirmationPopupComponent} from '../../component/confirmation-popup/confirmation-popup.component';
 import {AlertService} from '../../service/alert.service';
@@ -14,11 +14,18 @@ import {
   RESET_SCORES_MESSAGE,
   RESET_SCORES_SUCCESS_MESSAGE
 } from '../../constants/constants';
+import { MatFormField, MatError, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { NgIf, NgStyle, NgFor } from '@angular/common';
+import { YesNoDropdownComponent } from '../../component/yes-no-dropdown/yes-no-dropdown.component';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
 
 @Component({
-  selector: 'app-settings-page',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'app-settings-page',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, NgIf, MatError, YesNoDropdownComponent, MatLabel, MatSelect, NgStyle, NgFor, MatOption]
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   colors = COLOR_OPTIONS;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {YesNoDropdownComponent} from './yes-no-dropdown.component';
-import {MaterialModule} from '../../material.module';
+
 import {CommonModule} from '@angular/common';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {UntypedFormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -17,17 +17,14 @@ describe('YesNoDropdownComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        NoopAnimationsModule,
-        FormsModule,
-        MaterialModule,
-        ReactiveFormsModule
-      ],
-      declarations: [
-        YesNoDropdownComponent
-      ],
-    }).compileComponents();
+    imports: [
+    CommonModule,
+    NoopAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    YesNoDropdownComponent
+],
+}).compileComponents();
 
     fixture = TestBed.createComponent(YesNoDropdownComponent);
     component = fixture.debugElement.componentInstance;

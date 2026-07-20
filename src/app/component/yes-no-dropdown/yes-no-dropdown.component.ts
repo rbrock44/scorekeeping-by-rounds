@@ -1,9 +1,13 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {UntypedFormControl} from '@angular/forms';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-yes-no-dropdown',
-  template: `
+    selector: 'app-yes-no-dropdown',
+    template: `
     <div class="dropdown-ctn">
       <div data-dropdown-label class="dropdown__label">
         {{name}}
@@ -27,7 +31,8 @@ import {UntypedFormControl} from '@angular/forms';
       </div>
     </div>
   `,
-  styleUrls: ['./yes-no-dropdown.component.scss']
+    styleUrls: ['./yes-no-dropdown.component.scss'],
+    imports: [MatFormField, MatLabel, MatSelect, FormsModule, ReactiveFormsModule, MatOption, NgClass, NgIf, MatError]
 })
 export class YesNoDropdownComponent {
   @Input() control: UntypedFormControl;
