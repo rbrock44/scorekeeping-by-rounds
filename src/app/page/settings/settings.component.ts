@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -25,6 +25,7 @@ import { MatOption } from '@angular/material/core';
     selector: 'app-settings-page',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError, YesNoDropdownComponent, MatLabel, MatSelect, NgStyle, MatOption]
 })
 export class SettingsComponent implements OnInit, OnDestroy {

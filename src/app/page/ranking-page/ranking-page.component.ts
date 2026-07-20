@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import {PlayerScoreModel} from '../../model/player-score.model';
 
@@ -42,6 +42,7 @@ import {PlayerScoreModel} from '../../model/player-score.model';
     </div>
     `,
     styleUrls: ['./ranking-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: []
 })
 export class RankingPageComponent implements OnInit, OnDestroy {

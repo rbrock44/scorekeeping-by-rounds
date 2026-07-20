@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { SettingsService } from '../../service/settings.service';
 import { Pages } from '../../constants/constants';
 import { Location } from '@angular/common';
@@ -38,6 +38,7 @@ import { Location } from '@angular/common';
     </div>
     `,
     styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: []
 })
 export class HeaderComponent {

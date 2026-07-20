@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AlertService} from '../../service/alert.service';
@@ -51,6 +51,7 @@ import { MatInput } from '@angular/material/input';
     </div>
     `,
     styleUrls: ['./bonus-entry.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatFormField, MatInput, FormsModule, ReactiveFormsModule, MatError]
 })
 export class BonusEntryComponent implements OnInit, OnDestroy {

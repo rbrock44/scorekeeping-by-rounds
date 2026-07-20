@@ -1,4 +1,4 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, OnDestroy, inject, ChangeDetectionStrategy } from '@angular/core';
 import {SettingsService} from './service/settings.service';
 import { HeaderComponent } from './component/header/header.component';
 import { AlertComponent } from './component/alert/alert.component';
@@ -16,6 +16,7 @@ import { RouterOutlet } from '@angular/router';
     </div>
   `,
     styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [HeaderComponent, RouterOutlet, AlertComponent]
 })
 export class AppComponent implements OnDestroy {

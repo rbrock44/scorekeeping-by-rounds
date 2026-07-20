@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
@@ -34,6 +34,7 @@ import { NgClass } from '@angular/common';
     </div>
     `,
     styleUrls: ['./yes-no-dropdown.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatFormField, MatLabel, MatSelect, FormsModule, ReactiveFormsModule, MatOption, NgClass, MatError]
 })
 export class YesNoDropdownComponent {

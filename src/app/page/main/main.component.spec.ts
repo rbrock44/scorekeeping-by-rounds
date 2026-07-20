@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MainComponent } from './main.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 describe('MainComponent', () => {
   let fixture: ComponentFixture<MainComponent>;
@@ -14,7 +14,7 @@ describe('MainComponent', () => {
     await TestBed.configureTestingModule({
     imports: [BrowserAnimationsModule,
     RouterTestingModule, MainComponent],
-    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
 
     fixture = TestBed.createComponent(MainComponent);

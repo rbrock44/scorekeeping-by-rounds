@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -21,6 +21,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
       </div>
     </div>
   `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./confirmation-popup.component.scss']
 })
 export class ConfirmationPopupComponent implements OnInit {
