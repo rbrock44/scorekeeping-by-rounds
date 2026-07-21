@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+@use '../../../theme' as *;
 
 @media only screen and (max-width: 1225px) and (min-width: 800px) {
   /* For mobile phones: */

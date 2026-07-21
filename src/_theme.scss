@@ -1,0 +1,61 @@
+// Shared mixins and color palette. This file emits no CSS on its own, so
+// components can @use it without duplicating rules into every bundle.
+
+@use 'sass:color';
+@use 'sass:math';
+
+@mixin mobileDisplay() {
+  display: inline !important;
+}
+
+@mixin box($height: 60px, $width: 60px) {
+  height: $height;
+  width: $width;
+}
+
+@mixin largeFont {
+  font-size: large;
+  font-weight: 400;
+}
+
+@mixin centerFlex {
+  display: flex;
+  align-items: center;
+}
+
+@mixin buttonStyling {
+  background: var(--buttonColor);
+  border-style: groove;
+}
+
+$target-colors: (
+  blue-color: #236367,
+  white-color: #fff,
+  black-color: #42413d,
+  gray-color: #A9A9A9,
+  gray-dark-color: #808080,
+  green-color: #20ae44,
+  pink-color: #ff4124,
+  red-color: #FF0000,
+  purple-color: #4A235A,
+  orange-color: #FF6600,
+  yellow-color: #fae361,
+);
+
+$tones: 40, 80;
+
+// color.channel returns fractional channels where the legacy red()/green()/blue()
+// rounded, so round to keep the emitted values identical.
+@function -rgb-triplet($color) {
+  @return '#{math.round(color.channel($color, "red", $space: rgb))},#{math.round(color.channel($color, "green", $space: rgb))},#{math.round(color.channel($color, "blue", $space: rgb))}';
+}
+
+@mixin generate-color-var($key, $value) {
+  --#{$key}: #{$value};
+  --#{$key}-rgb: #{-rgb-triplet($value)};
+  @each $tone in $tones {
+    $scale-value: color.adjust($value, $lightness: math.div($tone, 2) * 1%, $space: hsl);
+    --#{$key}-#{$tone}: #{$scale-value};
+    --#{$key}-#{$tone}-rgb: #{-rgb-triplet($scale-value)};
+  }
+}
