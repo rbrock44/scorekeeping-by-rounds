@@ -23,9 +23,72 @@
   align-items: center;
 }
 
+// The accent (--buttonColor) is picked by the player in Settings and ranges from
+// near-white yellow to mid-grey black, so nothing here may assume it is light or
+// dark. Fills use the light tint, text stays ink, and state changes are neutral
+// overlays — that reads correctly against all eleven accents.
 @mixin buttonStyling {
-  background: var(--buttonColor);
-  border-style: groove;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--buttonColor);
+  border-radius: var(--radius-sm);
+  padding: 0 16px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: box-shadow 120ms ease, transform 120ms ease, background-color 120ms ease;
+
+  &:hover:not(:disabled) {
+    background: var(--tint-soft);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 4px rgb(16 24 28 / 12%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--buttonColor);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+// The primary action on a page. Same shape, carries the accent as its fill.
+@mixin primaryButtonStyling {
+  @include buttonStyling();
+  background: var(--backgroundColor);
+  font-weight: 500;
+
+  &:hover:not(:disabled) {
+    box-shadow: inset 0 0 0 999px rgb(16 24 28 / 6%);
+  }
+}
+
+// The scorepad: a white surface with ruled rows that the score columns sit on.
+@mixin card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+// Score columns line up only if the figures are the same width.
+@mixin tabularFigures {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+@mixin sectionLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
 }
 
 $target-colors: (

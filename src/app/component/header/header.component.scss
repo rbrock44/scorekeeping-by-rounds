@@ -1,22 +1,44 @@
-nav {
-  float: left;
-  width: 100%;
-}
+@use '../../../theme' as *;
 
 .nav-bar-bar {
-  height: 50px;
-}
-
-.nav-bar-link {
-  margin: 15px;
-  border: black;
-  font-size: large;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgb(16 24 28 / 5%);
 }
 
 .nav-bar-div {
   display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  // Matches the content container in app.component.scss so the nav and the page
+  // share one left edge.
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 8px 16px;
 }
 
-a {
+.nav-bar-link {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink-muted);
+  white-space: nowrap;
   cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+
+  &:hover {
+    background: var(--surface-muted);
+    color: var(--ink);
+  }
+
+  &.is-active {
+    background: var(--tint-soft);
+    color: var(--ink);
+    font-weight: 500;
+  }
 }

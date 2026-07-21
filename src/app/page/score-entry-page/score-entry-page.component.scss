@@ -1,59 +1,35 @@
 @use '../../../theme' as *;
 
-@media only screen and (max-width: 1225px) and (min-width: 800px) {
-  /* For mobile phones: */
-  [class*="score-entry-ctn"] {
-    max-height: 200vw !important;
-  }
-}
-
-@media only screen and (max-width: 1585px) and (min-width: 1226px) {
-  /* For mobile phones: */
-  [class*="score-entry-ctn"] {
-    max-height: 120vw !important;
-  }
-}
-
-@media only screen and (max-width: 1875px) and (min-width: 1586px) {
-  /* For mobile phones: */
-  [class*="score-entry-ctn"] {
-    max-height: 80vw !important;
-  }
-}
-
-@media only screen and (max-width: 799px) and (min-width: 769px) {
-  /* For mobile phones: */
-  [class*="score-entry-ctn"] {
-    max-height: 240vw !important;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  [class*="score-entry-ctn"] {
-    max-height: none !important;
-  }
-}
-
-
-
 .pagination-button {
-  @include box();
-  @include largeFont();
-  margin: 15px;
+  @include box(44px, 44px);
   @include buttonStyling();
+  padding: 0;
+  margin: 0;
+  border-radius: var(--radius-pill);
+  font-size: 1.125rem;
+  line-height: 1;
 }
 
 .apply-button {
-  @include box(30px, 100px);
-  margin: 10px;
-  @include largeFont();
-  @include buttonStyling();
+  @include box(40px, 120px);
+  @include primaryButtonStyling();
+  margin: 0;
+  font-size: 1rem;
 }
 
+// Round pagination on its own line, the primary action on the next, as before.
 .button-div {
-  text-align: center;
-  font-size: large;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+[data-round-pagination-buttons],
+[data-round-pagination-buttons-2] {
+  display: flex;
+  gap: 8px;
 }
 
 .header-div {
@@ -61,40 +37,62 @@
 }
 
 #round-title {
-  font-size: x-large;
+  @include sectionLabel();
+  display: block;
+  font-size: 0.8125rem;
 }
 
 #score-title {
-  font-size: xx-large;
-  padding: 5px;
+  display: block;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  padding: 5px 5px 2px;
 }
 
+// The scorepad. Multi-column rather than a fixed-height wrap: columns are added
+// as the viewport allows, so a 100-player game grows sideways instead of being
+// clipped, and names still read top-to-bottom down each column.
+// The scorepad. Multi-column works out how many columns fit the width on its
+// own, so a column is never cut in half. --cols (set from the roster size) caps
+// that count, which is what lets a 6-player game shrink to one narrow column
+// rather than holding the width a 100-player game needed.
 [data-score-entry-ctn] {
-  @include centerFlex();
-  flex-direction: column;
-  flex-wrap: wrap;
-  max-height: 35vw;
-  align-content: center;
+  @include card();
+  column-width: 210px;
+  column-count: var(--cols, 1);
+  column-gap: 0;
+  column-fill: balance;
+  max-width: min(100%, calc(var(--cols, 1) * 210px));
+  padding: 0;
+  margin: 0 auto;
 }
 
 [data-player-label] {
-  font-weight: 500;
-  min-width: 100px;
+  font-weight: 400;
+  // A shared label width keeps every input in the column on the same edge
+  // without stranding the score away from the name.
+  min-width: 95px;
+  color: var(--ink-muted);
+  // Long names shorten rather than pushing the score column out of line.
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .player-score-form-field {
   // The default form field is ~56px tall plus subscript space, which stacked up
-  // badly in the wrapping column layout. Shrink the container down to the input.
-  --mat-form-field-container-height: 40px;
-  --mat-form-field-container-vertical-padding: 8px;
+  // badly down a long roster. Shrink the container to the input itself.
+  --mat-form-field-container-height: 36px;
+  --mat-form-field-container-vertical-padding: 6px;
 
-  min-width: 90px;
-  width: 90px;
-  margin: 2px 0;
+  flex: 0 0 auto;
+  width: 84px;
 }
 
 // Spinner arrows steal most of the usable width at this size.
 .player-score-form-field input[type='number'] {
+  @include tabularFigures();
   text-align: center;
   -moz-appearance: textfield;
 
@@ -111,13 +109,16 @@
 }
 
 [data-for-each-player] {
-  @include centerFlex();
-  text-align: center;
-  gap: 8px;
-  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  break-inside: avoid;
+  break-inside: avoid;
 }
 
 [data-for-each-player]:nth-child(odd) {
-  background: var(--backgroundColor);
-
+  background: var(--tint-soft);
 }

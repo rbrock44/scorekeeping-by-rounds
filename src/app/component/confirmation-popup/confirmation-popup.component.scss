@@ -1,27 +1,41 @@
 @use '../../../theme' as *;
 
 .confirm-label {
-  padding: 5px;
-  font-size: x-large;
+  padding: 8px 4px 4px;
+  font-size: 1.25rem;
   font-weight: 400;
+  text-align: center;
 }
 
 [data-popup-ctn] {
   align-items: center;
   display: flex;
   flex-direction: column;
+  padding: 8px;
 }
 
 .button-div {
-  text-align: center;
-  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-[data-confirm-button], [data-cancel-button] {
-  height: 30px;
-  margin: 10px;
-  width: 100px;
-  font-size: large;
-  font-weight: 400;
+[data-confirm-button] {
+  height: 40px;
+  width: 110px;
+  font-size: 1rem;
+  @include primaryButtonStyling();
+}
+
+[data-cancel-button] {
+  height: 40px;
+  width: 110px;
+  font-size: 1rem;
   @include buttonStyling();
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: var(--radius-lg) !important;
 }

@@ -21,20 +21,20 @@ import { MatInput } from '@angular/material/input';
         </button>
       </div>
       @if (isFormGroupLoaded) {
-        <div data-score-entry-ctn class="score-entry-ctn">
+        <div data-score-entry-ctn class="score-entry-ctn" [style.--cols]="columnCount">
           @for (i of players; track i) {
             <div data-for-each-player>
               <div data-player-label>{{this.settingsService.getPlayerName(i)}}</div>
-              <mat-form-field class="player-score-form-field">
+              <mat-form-field class="player-score-form-field"
+                appearance="outline"
+                subscriptSizing="dynamic">
                 <input matInput data-score-entry-input
                   type="number"
-                  rows="1"
+                  inputmode="numeric"
                   [formControl]="formGroup.get(i.toString())"
                   >
                 @if (!formGroup.get(i.toString()).valid) {
-                  <mat-error data-basic-error>
-                    Enter {{this.settingsService.usePlayer ? this.settingsService.PLAYER : this.settingsService.TEAM}}'s score
-                  </mat-error>
+                  <mat-error data-basic-error>Required</mat-error>
                 }
               </mat-form-field>
             </div>
@@ -61,6 +61,15 @@ export class BonusEntryComponent implements OnInit, OnDestroy {
   formGroup: UntypedFormGroup = new UntypedFormGroup({});
   isFormGroupLoaded: boolean = false;
   players: number[] = [];
+
+  // Roughly how many rows stand in one screen-height column. The stylesheet
+  // caps the card at this many columns so a small roster shrinks to one narrow
+  // column instead of stretching across the width a full roster needed.
+  private readonly ROWS_PER_COLUMN: number = 12;
+
+  get columnCount(): number {
+    return Math.max(1, Math.ceil(this.players.length / this.ROWS_PER_COLUMN));
+  }
 
   ngOnInit(): void {
     this.settingsService.settingsReset.subscribe(scores => {

@@ -1,0 +1,7 @@
+.main-content {
+  // Wide enough that the rankings board can add columns on a large screen
+  // before it has to fall back to scrolling.
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 28px 16px 64px;
+}

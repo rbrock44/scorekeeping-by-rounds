@@ -14,7 +14,7 @@ import {PlayerScoreModel} from '../../model/player-score.model';
       <div data-score-div class="score-div-ctn">
         <div data-overall-score-ctn class="score-ctn">
           <div data-overall-score-label class="score-title">Overall Score</div>
-          <div class="player-score-ctn">
+          <div class="player-score-ctn" [style.--cols]="columnCount(overallScores)">
             @for (sc of overallScores; track sc) {
               <div class="player-score-value">
                 <div data-overall-value-name class="player-label">{{sc.player}}</div>&nbsp;
@@ -27,7 +27,7 @@ import {PlayerScoreModel} from '../../model/player-score.model';
         @if (settingsService.showLastRoundScores) {
           <div data-last-round-score-ctn class="score-ctn">
             <div data-last-round-score-label class="score-title">Last Round ({{this.lastRoundNumber + 1}}) Scores</div>
-            <div class="player-score-ctn">
+            <div class="player-score-ctn" [style.--cols]="columnCount(lastRoundScores)">
               @for (sc of lastRoundScores; track sc) {
                 <div class="player-score-value">
                   <div data-last-round-value-name class="player-label">{{sc.player}}</div>&nbsp;
@@ -53,6 +53,15 @@ export class RankingPageComponent implements OnInit, OnDestroy {
 
   lastRoundNumber: number = 1;
   title: string = '';
+
+  // Roughly how many rows stand in one screen-height column. The stylesheet
+  // caps the board at this many columns, so a small roster shows as one narrow
+  // column instead of stretching across the width a full roster needed.
+  private readonly ROWS_PER_COLUMN: number = 20;
+
+  columnCount(scores: PlayerScoreModel[]): number {
+    return Math.max(1, Math.ceil((scores?.length ?? 0) / this.ROWS_PER_COLUMN));
+  }
 
   ngOnInit() {
     this.getSubscriptionsStarted();

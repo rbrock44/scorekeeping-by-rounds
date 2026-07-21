@@ -9,6 +9,8 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: var(--app-bg);
+  color: var(--ink);
 }
 
 // Color Palette: Triadic Scheme
@@ -20,4 +22,37 @@ body {
 
   --buttonColor: var(--blue-color-40);
   --backgroundColor: var(--blue-color-80);
+
+  // Neutral shell. Kept deliberately quiet so the player's chosen accent above
+  // is the only real colour on the page.
+  --app-bg: #edeef1;
+  --surface: #ffffff;
+  --surface-muted: #f4f5f7;
+  --line: #e2e5e9;
+  --ink: #1c2426;
+  --ink-muted: #626c70;
+
+  // The accent tint, softened for large fills like alternating score rows.
+  --tint-soft: color-mix(in srgb, var(--backgroundColor) 45%, white);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 2px rgb(16 24 28 / 6%), 0 8px 20px -12px rgb(16 24 28 / 22%);
+}
+
+// Every interactive element gets a visible keyboard ring, including the ones
+// Material renders for us.
+:focus-visible {
+  outline: 2px solid var(--buttonColor);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

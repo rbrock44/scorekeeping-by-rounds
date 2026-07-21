@@ -15,6 +15,15 @@
   [class*="score-ctn"] {
     padding-bottom: 2vh;
   }
+
+  // A phone has no width to grow into: one full-width column, page scrolls.
+  [class*="player-score-ctn"] {
+    max-height: none !important;
+    max-width: 100% !important;
+    column-count: 1 !important;
+    column-width: auto !important;
+    overflow: visible;
+  }
 }
 
 .header-div {
@@ -22,47 +31,86 @@
 }
 
 [data-header-title] {
-  font-size: xx-large;
+  display: block;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   padding: 5px;
 }
 
+// Each board takes only the width its own card needs, so the two sit together
+// in the middle rather than each holding half the page.
 .score-ctn {
   display: flex;
   flex-direction: column;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .score-title {
-  font-size: x-large;
-  font-weight: 500;
-  padding: 5px;
+  @include sectionLabel();
+  padding: 0 0 10px 2px;
 }
 
+// nowrap on purpose: flex decides to wrap from each card's natural width, so a
+// wide roster would push the last-round board onto a second line and off the
+// screen. Held on one line, the two boards shrink to share the width instead.
 [data-score-div] {
   display: flex;
-  justify-content: space-around;
-  margin-top: 50px;
+  flex-wrap: nowrap;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 32px;
 }
 
+// The scorepad. Rows stack down a column to the viewport limit, then start a
+// new column beside it, so the board grows sideways instead of pushing the page
+// down. If a roster outruns the width, the card scrolls rather than the page.
+.player-score-ctn {
+  @include card();
+  max-height: calc(100dvh - 205px);
+  column-width: 165px;
+  // --cols comes from the roster size: it caps the board's width so a 6-player
+  // game is a narrow card rather than a wide one with dead space where a long
+  // roster would have been. Multi-column drops below this cap on its own when
+  // the width cannot hold that many, so a column is never cut in half.
+  column-count: var(--cols, 1);
+  column-gap: 0;
+  column-fill: auto;
+  max-width: min(100%, calc(var(--cols, 1) * 165px));
+  padding: 0;
+  overflow: auto;
+}
+
+// A fixed row height, so a row whose score is still blank is exactly as tall as
+// one carrying a number. Without it the last-round board comes up short against
+// the overall board beside it and leaves a bar of white along its bottom.
 .player-score-value {
-  //text-align: center;
   display: flex;
-  padding: 5px 15px 5px 5px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 30px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  break-inside: avoid;
 }
 
 .player-label {
-  min-width: 100px;
-}
-
-.player-score-ctn {
-  display: flex;
-  align-self: center;
-  flex-direction: column;
-  //align-items: center;
-  flex-wrap: wrap;
-  max-height: 78vh;
-  align-content: center;
+  min-width: 76px;
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .player-score-value:nth-child(odd) {
-  background: var(--backgroundColor);
+  background: var(--tint-soft);
+}
+
+[data-overall-value-score],
+[data-last-round-value-score] {
+  @include tabularFigures();
+  font-weight: 500;
+  font-size: 1.0625rem;
 }

@@ -28,51 +28,75 @@
 
 .header-div {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 32px;
 }
 
+// One settings card holding every row, so the labels share a single edge.
 [data-settings-input] {
+  @include card();
   @include centerFlex();
   flex-direction: column;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 8px 24px 16px;
 }
 
 [data-header-title] {
-  font-size: xx-large;
+  display: block;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   padding: 5px;
 }
 
+// One action per line, stacked and centred: these are commitments (apply,
+// reset, export), not a toolbar, and a row of four invites a misclick.
 .buttons {
-  text-align: center;
-  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+// The two resets share a row: they are the same kind of destructive action, so
+// pairing them reads as one choice with two scopes. Apply and Export keep their
+// own rows above and below.
+.buttons-ctn-big {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+}
+
+.apply-button,
+[data-button-export],
+.reset-button {
+  height: 40px;
+  // A shared width so the stack reads as one column of actions.
+  width: 200px;
+  font-size: 1rem;
+  @include buttonStyling();
 }
 
 .apply-button {
-  height: 30px;
-  margin: 10px;
-  width: 100px;
-  font-size: large;
-  @include buttonStyling();
+  @include primaryButtonStyling();
 }
 
-[data-button-export] {
-  height: 30px;
-  margin: 10px;
-  font-size: large;
-  @include buttonStyling();
-}
-
-.reset-button {
-  margin: 15px;
-  font-size: large;
-  @include buttonStyling();
-}
-
+// Matches .dropdown__label below: every setting on this screen is labelled the
+// same way, whether its control is a text field or a dropdown.
 .settings-value-label {
   font-weight: 500;
   min-width: 260px;
 }
 
 .settings-value-form-field {
+  // A title and two small numbers do not need the full 56px field. Match the
+  // score inputs so the two screens feel like the same control.
+  --mat-form-field-container-height: 40px;
+  --mat-form-field-container-vertical-padding: 8px;
+
   min-width: 100px;
   word-wrap: break-word;
   white-space: pre-wrap;

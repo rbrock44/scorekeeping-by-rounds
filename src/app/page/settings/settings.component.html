@@ -7,7 +7,7 @@
     <!-- TITLE  -->
     <div class="settings-value-ctn">
       <div data-title-label class="settings-value-label">Title</div>
-      <mat-form-field class="settings-value-form-field">
+      <mat-form-field class="settings-value-form-field" appearance="outline" subscriptSizing="dynamic">
         <input matInput data-title
           type="text"
           rows="1"
@@ -23,7 +23,7 @@
       <!-- NUMBER OF ROUNDS  -->
       <div class="settings-value-ctn">
         <div data-number-of-rounds-input-label class="settings-value-label">Number Of Rounds</div>
-        <mat-form-field class="settings-value-form-field">
+        <mat-form-field class="settings-value-form-field" appearance="outline" subscriptSizing="dynamic">
           <input matInput data-number-of-rounds-input
             type="number"
             rows="1"
@@ -46,7 +46,7 @@
           <div data-number-of-players-input-label class="settings-value-label">
             Number Of {{this.settingsService.usePlayer ? this.settingsService.PLAYERS : this.settingsService.TEAMS}}
           </div>
-          <mat-form-field class="settings-value-form-field">
+          <mat-form-field class="settings-value-form-field" appearance="outline" subscriptSizing="dynamic">
             <input matInput data-number-of-players-input
               type="number"
               rows="1"
