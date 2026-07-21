@@ -73,7 +73,7 @@
   // A shared label width keeps every input in the column on the same edge
   // without stranding the score away from the name.
   min-width: 95px;
-  color: var(--ink-muted);
+  color: var(--ink);
   // Long names shorten rather than pushing the score column out of line.
   overflow: hidden;
   text-overflow: ellipsis;

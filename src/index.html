@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script>
+    (function () {
+      try {
+        var saved = window.localStorage.getItem('theme');
+        var isDark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      } catch (e) {}
+    })();
+  </script>
   <title>ScorekeepingByRounds</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -62,6 +62,10 @@
   @include buttonStyling();
   background: var(--backgroundColor);
   font-weight: 500;
+  // The accent fill is always a light tint (see --backgroundColor), independent
+  // of the page theme, so the label stays this fixed dark ink rather than
+  // following --ink into white in dark mode.
+  color: #1c2426;
 
   &:hover:not(:disabled) {
     box-shadow: inset 0 0 0 999px rgb(16 24 28 / 6%);

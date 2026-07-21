@@ -97,8 +97,9 @@
 }
 
 .player-label {
+  font-weight: 400;
   min-width: 76px;
-  color: var(--ink-muted);
+  color: var(--ink);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

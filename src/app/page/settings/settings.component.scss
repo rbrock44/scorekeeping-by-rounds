@@ -115,3 +115,14 @@
   display: flex;
   align-items: center;
 }
+
+// The colour select paints its own chosen swatch as its background (see
+// getBackgroundColor) — always a light tint, independent of the page theme —
+// so its trigger and option text must stay dark in both light and dark mode.
+.dropdown-form-field {
+  --mat-select-enabled-trigger-text-color: #1c2426;
+}
+
+[data-dropdown-option] {
+  --mat-option-label-text-color: #1c2426;
+}

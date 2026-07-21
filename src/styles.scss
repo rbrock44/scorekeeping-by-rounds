@@ -41,6 +41,69 @@ body {
   --radius-pill: 999px;
 
   --shadow-card: 0 1px 2px rgb(16 24 28 / 6%), 0 8px 20px -12px rgb(16 24 28 / 22%);
+
+  color-scheme: light;
+
+  // The prebuilt Material theme below hardcodes light-only colours (e.g.
+  // rgba(0,0,0,.87) input text) that never adapt to --ink/--surface. Rebind
+  // the tokens the app actually uses to our own palette so inputs, selects,
+  // and dialogs follow the page theme instead of staying stuck in light mode.
+  --mat-form-field-outlined-input-text-color: var(--ink);
+  --mat-form-field-outlined-input-text-placeholder-color: var(--ink-muted);
+  --mat-form-field-outlined-label-text-color: var(--ink-muted);
+  --mat-form-field-outlined-hover-label-text-color: var(--ink);
+  --mat-form-field-outlined-focus-label-text-color: var(--buttonColor);
+  --mat-form-field-outlined-outline-color: var(--line);
+  --mat-form-field-outlined-hover-outline-color: var(--ink-muted);
+  --mat-form-field-outlined-focus-outline-color: var(--buttonColor);
+  --mat-form-field-outlined-caret-color: var(--buttonColor);
+  --mat-form-field-enabled-select-arrow-color: var(--ink-muted);
+  --mat-form-field-focus-select-arrow-color: var(--buttonColor);
+
+  --mat-form-field-filled-container-color: var(--surface-muted);
+  --mat-form-field-filled-input-text-color: var(--ink);
+  --mat-form-field-filled-label-text-color: var(--ink-muted);
+  --mat-form-field-filled-hover-label-text-color: var(--ink);
+  --mat-form-field-filled-focus-label-text-color: var(--buttonColor);
+  --mat-form-field-filled-active-indicator-color: var(--line);
+  --mat-form-field-filled-hover-active-indicator-color: var(--ink-muted);
+  --mat-form-field-filled-focus-active-indicator-color: var(--buttonColor);
+
+  --mat-select-enabled-trigger-text-color: var(--ink);
+  --mat-select-placeholder-text-color: var(--ink-muted);
+  --mat-select-panel-background-color: var(--surface);
+  --mat-select-enabled-arrow-color: var(--ink-muted);
+  --mat-select-focused-arrow-color: var(--buttonColor);
+
+  --mat-option-label-text-color: var(--ink);
+  --mat-option-hover-state-layer-color: var(--surface-muted);
+  --mat-option-focus-state-layer-color: var(--surface-muted);
+  --mat-option-selected-state-layer-color: var(--tint-soft);
+
+  --mat-dialog-container-color: var(--surface);
+  --mat-dialog-subhead-color: var(--ink);
+  --mat-dialog-supporting-text-color: var(--ink-muted);
+}
+
+// Same neutral shell, inverted. The accent (--buttonColor / --backgroundColor)
+// is left untouched here on purpose — it's the player's identity colour for
+// the game, not a light/dark concern, and it stays legible on both surfaces.
+:root[data-theme='dark'] {
+  --app-bg: #10161a;
+  --surface: #1a2226;
+  --surface-muted: #212b30;
+  --line: #2c373c;
+  --ink: #eef1f2;
+  --ink-muted: #93a1a6;
+
+  // On dark surfaces, mixing the accent toward white (the light-mode formula)
+  // would paint a bright pastel patch. Mix toward the surface colour instead,
+  // so the tint stays legible and dark.
+  --tint-soft: color-mix(in srgb, var(--backgroundColor) 35%, var(--surface));
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 35%), 0 8px 24px -12px rgb(0 0 0 / 60%);
+
+  color-scheme: dark;
 }
 
 // Every interactive element gets a visible keyboard ring, including the ones

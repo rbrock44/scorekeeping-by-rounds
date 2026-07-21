@@ -11,14 +11,24 @@
 
 .nav-bar-div {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
   align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   // Matches the content container in app.component.scss so the nav and the page
   // share one left edge.
   max-width: 1800px;
   margin: 0 auto;
   padding: 8px 16px;
+}
+
+.nav-bar-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  // Lets the links wrap onto their own lines under the toggle on narrow
+  // screens, instead of pushing the toggle out of the row.
+  min-width: 0;
 }
 
 .nav-bar-link {
@@ -40,5 +50,68 @@
     background: var(--tint-soft);
     color: var(--ink);
     font-weight: 500;
+  }
+}
+
+.theme-toggle {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+
+  &:hover {
+    background: var(--surface-muted);
+    color: var(--ink);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--buttonColor);
+    outline-offset: 2px;
+  }
+}
+
+.theme-toggle-icon {
+  grid-area: 1 / 1;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.theme-toggle-icon--sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle-icon--moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+.theme-toggle.is-dark {
+  .theme-toggle-icon--sun {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+
+  .theme-toggle-icon--moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
 }
