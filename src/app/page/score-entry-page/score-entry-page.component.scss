@@ -83,15 +83,38 @@
 }
 
 .player-score-form-field {
-  min-width: 50px;
-  width: 50px;
-  word-wrap: break-word;
-  white-space: pre-wrap;
+  // The default form field is ~56px tall plus subscript space, which stacked up
+  // badly in the wrapping column layout. Shrink the container down to the input.
+  --mat-form-field-container-height: 40px;
+  --mat-form-field-container-vertical-padding: 8px;
+
+  min-width: 90px;
+  width: 90px;
+  margin: 2px 0;
+}
+
+// Spinner arrows steal most of the usable width at this size.
+.player-score-form-field input[type='number'] {
+  text-align: center;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+[data-basic-error] {
+  font-size: 11px;
+  white-space: nowrap;
 }
 
 [data-for-each-player] {
   @include centerFlex();
   text-align: center;
+  gap: 8px;
+  padding: 2px 8px;
 }
 
 [data-for-each-player]:nth-child(odd) {

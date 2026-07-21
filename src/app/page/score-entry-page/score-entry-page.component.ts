@@ -36,16 +36,16 @@ import { MatInput } from '@angular/material/input';
           @for (i of players; track i) {
             <div data-for-each-player>
               <div data-player-label>{{this.settingsService.getPlayerName(i)}}</div>
-              <mat-form-field class="player-score-form-field">
+              <mat-form-field class="player-score-form-field"
+                appearance="outline"
+                subscriptSizing="dynamic">
                 <input matInput data-score-entry-input
                   type="number"
-                  rows="1"
+                  inputmode="numeric"
                   [formControl]="scoreEntryFormGroup.get(i.toString())"
                   >
                 @if (!scoreEntryFormGroup.get(i.toString()).valid) {
-                  <mat-error data-basic-error>
-                    Enter {{this.settingsService.usePlayer ? this.settingsService.PLAYER : this.settingsService.TEAM}}'s score
-                  </mat-error>
+                  <mat-error data-basic-error>Required</mat-error>
                 }
               </mat-form-field>
             </div>
