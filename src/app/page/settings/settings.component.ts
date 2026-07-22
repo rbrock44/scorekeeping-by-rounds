@@ -135,7 +135,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         label: message
       },
       id: 'confirmation-modal',
-      width: '35vw'
+      width: window.innerWidth <= 768 ? '90vw' : '35vw'
     });
   }
 
