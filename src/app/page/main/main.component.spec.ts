@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MainComponent } from './main.component';
 import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
+import { ExcelService } from '../../service/excel.service';
 
 describe('MainComponent', () => {
   let fixture: ComponentFixture<MainComponent>;
@@ -14,7 +15,7 @@ describe('MainComponent', () => {
     await TestBed.configureTestingModule({
     imports: [BrowserAnimationsModule,
     RouterTestingModule, MainComponent],
-    providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
+    providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting(), ExcelService]
 }).compileComponents();
 
     fixture = TestBed.createComponent(MainComponent);

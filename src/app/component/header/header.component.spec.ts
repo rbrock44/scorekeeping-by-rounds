@@ -3,6 +3,7 @@ import {HeaderComponent} from './header.component';
 import {expectElementToContainContentAtIndex} from '../../constants/expectations.spec';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Router} from '@angular/router';
+import {ExcelService} from '../../service/excel.service';
 
 describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
@@ -19,6 +20,9 @@ describe('HeaderComponent', () => {
     imports: [
         RouterTestingModule,
         HeaderComponent
+    ],
+    providers: [
+        ExcelService
     ],
 }).compileComponents();
 
