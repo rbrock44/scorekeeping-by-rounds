@@ -1,11 +1,16 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import * as _ from 'lodash';
+import * as FileSaver from 'file-saver';
 import {Observable, Subject} from 'rxjs';
 import {PlayerModel} from '../model/player.model';
 import {PlayerScoreModel} from '../model/player-score.model';
+import {GameExportModel, GAME_EXPORT_VERSION} from '../model/game-export.model';
 import {ExcelService} from './excel.service';
 import {LocalStorageSaveItem} from '../model/local-storage-save-item.model';
 import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO, setAll, Pages} from '../constants/constants';
+
+const GAME_EXPORT_TYPE = 'application/json;charset=UTF-8';
+const GAME_EXPORT_EXTENSION = '.json';
 
 @Injectable({
   providedIn: 'root'
@@ -317,6 +322,117 @@ export class SettingsService implements OnDestroy {
 
     // This helped
     // https://medium.com/@madhavmahesh/exporting-an-excel-file-in-angular-927756ac9857
+  }
+
+  // Downloads the whole in-progress game (settings + every round's scores) as a
+  // JSON file, so a game running across a long session can be handed off or
+  // backed up instead of living only in this browser's localStorage.
+  public exportGameToJson(): void {
+    const data: GameExportModel = this.buildGameExport();
+    const json: string = JSON.stringify(data, null, 2);
+    const blob: Blob = new Blob([json], {type: GAME_EXPORT_TYPE});
+
+    FileSaver.saveAs(blob, (this.title || TITLE_DEFAULT) + '_backup_' + new Date().getTime() + GAME_EXPORT_EXTENSION);
+  }
+
+  private buildGameExport(): GameExportModel {
+    return {
+      version: GAME_EXPORT_VERSION,
+      exportedAt: new Date().toISOString(),
+      title: this.title,
+      numberOfPlayers: this.numberOfPlayers,
+      numberOfRounds: this.numberOfRounds,
+      lastRoundNumber: this.lastRoundNumber,
+      usePlayer: this.usePlayer,
+      shouldSortByPlayer: this.shouldSortByPlayer,
+      showLastRoundScores: this.showLastRoundScores,
+      applyScoresNextRound: this.applyScoresNextRound,
+      hasBonusRound: this.hasBonusRound,
+      color: this.color,
+      scores: _.cloneDeep(this.scores),
+      totals: _.cloneDeep(this.totals)
+    };
+  }
+
+  // Parses and validates a backup file's contents. Throws with a message fit
+  // to show the player directly if the file isn't a game backup this app can
+  // read, rather than failing silently or applying a half-shaped game.
+  public parseGameExport(fileContents: string): GameExportModel {
+    let parsed: unknown;
+
+    try {
+      parsed = JSON.parse(fileContents);
+    } catch {
+      throw new Error('That file is not valid JSON.');
+    }
+
+    if (!this.isValidGameExport(parsed)) {
+      throw new Error('That file is not a valid Scorekeeping By Rounds backup.');
+    }
+
+    return parsed;
+  }
+
+  private isValidGameExport(value: unknown): value is GameExportModel {
+    if (!value || typeof value !== 'object') {
+      return false;
+    }
+
+    const data = value as Record<string, unknown>;
+
+    if (typeof data.numberOfPlayers !== 'number' || data.numberOfPlayers <= 0) {
+      return false;
+    }
+
+    if (typeof data.numberOfRounds !== 'number' || data.numberOfRounds <= 0) {
+      return false;
+    }
+
+    if (typeof data.title !== 'string') {
+      return false;
+    }
+
+    if (!Array.isArray(data.totals) || data.totals.length !== data.numberOfPlayers) {
+      return false;
+    }
+
+    if (!Array.isArray(data.scores) || data.scores.length !== data.numberOfPlayers) {
+      return false;
+    }
+
+    return (data.scores as unknown[]).every((playerScore: unknown) => {
+      if (!playerScore || typeof playerScore !== 'object') {
+        return false;
+      }
+
+      const player = playerScore as Record<string, unknown>;
+      return Array.isArray(player.score)
+        && player.score.length === data.numberOfRounds
+        && typeof player.bonus === 'number';
+    });
+  }
+
+  // Overwrites the current settings and scores with an already-validated
+  // backup, persists it, and tells every page to re-render from it.
+  public applyImportedGame(data: GameExportModel): void {
+    this.title = data.title;
+    this.numberOfPlayers = data.numberOfPlayers;
+    this.numberOfRounds = data.numberOfRounds;
+    this.lastRoundNumber = data.lastRoundNumber ?? 0;
+    this.usePlayer = !!data.usePlayer;
+    this.shouldSortByPlayer = !!data.shouldSortByPlayer;
+    this.showLastRoundScores = !!data.showLastRoundScores;
+    this.applyScoresNextRound = !!data.applyScoresNextRound;
+    this.hasBonusRound = !!data.hasBonusRound;
+    this.scores = _.cloneDeep(data.scores);
+    this.totals = _.cloneDeep(data.totals);
+
+    if (data.color) {
+      this.setColor(data.color);
+    }
+
+    this.saveToLocalStorage();
+    this._settingsResetSubject.next(true);
   }
 
   //#endregion

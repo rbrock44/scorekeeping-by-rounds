@@ -135,5 +135,19 @@
           <button data-button-export (click)="this.settingsService.exportScoresToExcel()">
             Export Scores
           </button>
+          <div class="buttons-ctn-big">
+            <button data-button-export-game type="button" (click)="exportGame()">
+              Export Game
+            </button>
+            <button data-button-import-game type="button" (click)="importGameInput.click()">
+              Import Game
+            </button>
+            <input #importGameInput data-import-game-input
+              type="file"
+              accept="application/json,.json"
+              aria-label="Import game backup file"
+              hidden
+              (change)="importGame($event)">
+          </div>
         </div>
       </div>

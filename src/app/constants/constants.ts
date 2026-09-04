@@ -6,6 +6,10 @@ export const RESET_EVERYTHING_SUCCESS_MESSAGE: string = 'Settings and scores res
 export const APPLY_SETTING_SUCCESS_MESSAGE: string = 'Settings applied successfully.';
 export const ACTION_CANCELLED_MESSAGE: string = 'Action Cancelled.';
 
+export const IMPORT_GAME_MESSAGE: string = 'This will overwrite your current settings and scores with the imported file.';
+export const IMPORT_GAME_SUCCESS_MESSAGE: string = 'Game imported successfully.';
+export const EXPORT_GAME_SUCCESS_MESSAGE: string = 'Game exported successfully.';
+
 export const PERFORM_THIS_ACTION: string = 'Are you sure you want to perform this action?';
 
 export const COLOR_OPTIONS = [

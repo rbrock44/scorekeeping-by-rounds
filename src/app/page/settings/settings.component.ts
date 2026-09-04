@@ -9,11 +9,15 @@ import {
   APPLY_SETTING_MESSAGE,
   APPLY_SETTING_SUCCESS_MESSAGE,
   COLOR_OPTIONS,
+  EXPORT_GAME_SUCCESS_MESSAGE,
+  IMPORT_GAME_MESSAGE,
+  IMPORT_GAME_SUCCESS_MESSAGE,
   RESET_EVERYTHING_MESSAGE,
   RESET_EVERYTHING_SUCCESS_MESSAGE,
   RESET_SCORES_MESSAGE,
   RESET_SCORES_SUCCESS_MESSAGE
 } from '../../constants/constants';
+import {GameExportModel} from '../../model/game-export.model';
 import { MatFormField, MatError, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { NgStyle } from '@angular/common';
@@ -127,6 +131,57 @@ export class SettingsComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  exportGame(): void {
+    this.settingsService.exportGameToJson();
+    this.alertService.success(EXPORT_GAME_SUCCESS_MESSAGE, Date.now());
+  }
+
+  importGame(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files && input.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      let data: GameExportModel;
+
+      try {
+        data = this.settingsService.parseGameExport(reader.result as string);
+      } catch (error) {
+        this.alertService.error(error.message, Date.now());
+        input.value = '';
+        return;
+      }
+
+      const dialogRef = this.openDialog(IMPORT_GAME_MESSAGE);
+      if (dialogRef) {
+        dialogRef.afterClosed().subscribe(shouldImport => {
+          if (shouldImport) {
+            this.settingsService.applyImportedGame(data);
+            this.applySettingsValuesToFormControls();
+            this.alertService.success(IMPORT_GAME_SUCCESS_MESSAGE, Date.now());
+          } else {
+            this.alertService.warn(ACTION_CANCELLED_MESSAGE, Date.now());
+          }
+
+          input.value = '';
+        });
+      } else {
+        input.value = '';
+      }
+    };
+
+    reader.onerror = () => {
+      this.alertService.error('Could not read that file.', Date.now());
+      input.value = '';
+    };
+
+    reader.readAsText(file);
   }
 
   private openDialog(message: string): MatDialogRef<ConfirmationPopupComponent> {
