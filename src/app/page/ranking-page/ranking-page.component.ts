@@ -12,26 +12,36 @@ import {PlayerScoreModel} from '../../model/player-score.model';
       </div>
     
       <div data-score-div class="score-div-ctn">
-        <div data-overall-score-ctn class="score-ctn">
+        <div data-overall-score-ctn class="score-ctn" aria-live="polite" aria-atomic="false">
           <div data-overall-score-label class="score-title">Overall Score</div>
-          <div class="player-score-ctn" [style.--cols]="columnCount(overallScores)">
+          <div class="player-score-ctn" [style.--cols]="columnCount(overallScores)"
+            role="table" [attr.aria-label]="(title || 'Scorekeeping') + ' — Overall Score'">
+            <div role="row" class="sr-only">
+              <span role="columnheader">Player</span>
+              <span role="columnheader">Total score</span>
+            </div>
             @for (sc of overallScores; track sc) {
-              <div class="player-score-value">
-                <div data-overall-value-name class="player-label">{{sc.player}}</div>&nbsp;
-                <div data-overall-value-score>{{sc.totalScore}}</div>
+              <div class="player-score-value" role="row">
+                <div data-overall-value-name class="player-label" role="rowheader">{{sc.player}}</div>&nbsp;
+                <div data-overall-value-score role="cell">{{sc.totalScore}}</div>
               </div>
             }
           </div>
         </div>
-    
+
         @if (settingsService.showLastRoundScores) {
           <div data-last-round-score-ctn class="score-ctn">
             <div data-last-round-score-label class="score-title">Last Round ({{this.lastRoundNumber + 1}}) Scores</div>
-            <div class="player-score-ctn" [style.--cols]="columnCount(lastRoundScores)">
+            <div class="player-score-ctn" [style.--cols]="columnCount(lastRoundScores)"
+              role="table" [attr.aria-label]="'Round ' + (this.lastRoundNumber + 1) + ' scores'">
+              <div role="row" class="sr-only">
+                <span role="columnheader">Player</span>
+                <span role="columnheader">Round score</span>
+              </div>
               @for (sc of lastRoundScores; track sc) {
-                <div class="player-score-value">
-                  <div data-last-round-value-name class="player-label">{{sc.player}}</div>&nbsp;
-                  <div data-last-round-value-score>{{sc.totalScore}}</div>
+                <div class="player-score-value" role="row">
+                  <div data-last-round-value-name class="player-label" role="rowheader">{{sc.player}}</div>&nbsp;
+                  <div data-last-round-value-score role="cell">{{sc.totalScore}}</div>
                 </div>
               }
             </div>

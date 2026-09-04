@@ -32,6 +32,7 @@ import { MatInput } from '@angular/material/input';
                   type="number"
                   inputmode="numeric"
                   [formControl]="formGroup.get(i.toString())"
+                  [attr.aria-label]="settingsService.getPlayerName(i) + ' bonus score'"
                   >
                 @if (!formGroup.get(i.toString()).valid) {
                   <mat-error data-basic-error>Required</mat-error>
