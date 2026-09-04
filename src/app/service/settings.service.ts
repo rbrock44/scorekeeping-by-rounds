@@ -5,7 +5,7 @@ import {Observable, Subject} from 'rxjs';
 import {PlayerModel} from '../model/player.model';
 import {PlayerScoreModel} from '../model/player-score.model';
 import {GameExportModel, GAME_EXPORT_VERSION} from '../model/game-export.model';
-import {ExcelService} from './excel.service';
+import {ExcelService, ExcelRow} from './excel.service';
 import {LocalStorageSaveItem} from '../model/local-storage-save-item.model';
 import {COLOR_DEFAULT, FALSE_DEFAULT, TEN, TITLE_DEFAULT, TRUE_DEFAULT, ZERO, setAll, Pages} from '../constants/constants';
 
@@ -298,11 +298,11 @@ export class SettingsService implements OnDestroy {
     const total: string = 'Total';
     const round: string = 'Round ';
     const bonus: string = 'Bonus Round';
-    let dataArray: any = [];
+    let dataArray: ExcelRow[] = [];
 
     let i: number = 0;
     for (i; i < this.numberOfPlayers; i++) {
-      let data: any = {};
+      let data: ExcelRow = {};
       let x: number = 0;
       data[name] = this.getPlayerName(i);
       data[total] = this.totals[i];
@@ -466,7 +466,7 @@ export class SettingsService implements OnDestroy {
     this.setColor(this.getItemOrDefault('color', COLOR_DEFAULT));
   }
 
-  private getBoolean(value): boolean {
+  private getBoolean(value: string | boolean | number): boolean {
     switch (value) {
       case true:
       case 'true':
